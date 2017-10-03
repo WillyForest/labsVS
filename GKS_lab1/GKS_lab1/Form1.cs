@@ -49,7 +49,7 @@ namespace GKS_lab1
             TextBox txtbx = new TextBox();
             txtbx.Text = "";
             txtbx.Size = new Size(160, 20);
-            txtbx.Location = new Point(20, 20 + 20*strs.Count);
+            txtbx.Location = new Point(20, 20 + 30*strs.Count);
             this.Controls.Add(txtbx);
             return txtbx;
         }
