@@ -1,0 +1,8 @@
+c:\users\sasha\documents\visual studio 2015\Projects\TestDialog\TestDialog\bin\Debug\TestDialog.exe.config
+c:\users\sasha\documents\visual studio 2015\Projects\TestDialog\TestDialog\bin\Debug\TestDialog.exe
+c:\users\sasha\documents\visual studio 2015\Projects\TestDialog\TestDialog\bin\Debug\TestDialog.pdb
+c:\users\sasha\documents\visual studio 2015\Projects\TestDialog\TestDialog\obj\Debug\TestDialog.Form1.resources
+c:\users\sasha\documents\visual studio 2015\Projects\TestDialog\TestDialog\obj\Debug\TestDialog.Properties.Resources.resources
+c:\users\sasha\documents\visual studio 2015\Projects\TestDialog\TestDialog\obj\Debug\TestDialog.csproj.GenerateResource.Cache
+c:\users\sasha\documents\visual studio 2015\Projects\TestDialog\TestDialog\obj\Debug\TestDialog.exe
+c:\users\sasha\documents\visual studio 2015\Projects\TestDialog\TestDialog\obj\Debug\TestDialog.pdb

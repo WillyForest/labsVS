@@ -1,0 +1,6 @@
+c:\users\sasha\documents\visual studio 2015\Projects\TestArray\TestArray\bin\Debug\TestArray.exe.config
+c:\users\sasha\documents\visual studio 2015\Projects\TestArray\TestArray\bin\Debug\TestArray.exe
+c:\users\sasha\documents\visual studio 2015\Projects\TestArray\TestArray\bin\Debug\TestArray.pdb
+c:\users\sasha\documents\visual studio 2015\Projects\TestArray\TestArray\obj\Debug\TestArray.csprojResolveAssemblyReference.cache
+c:\users\sasha\documents\visual studio 2015\Projects\TestArray\TestArray\obj\Debug\TestArray.exe
+c:\users\sasha\documents\visual studio 2015\Projects\TestArray\TestArray\obj\Debug\TestArray.pdb

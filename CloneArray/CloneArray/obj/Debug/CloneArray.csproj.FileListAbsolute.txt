@@ -1,0 +1,5 @@
+c:\users\sasha\documents\visual studio 2015\Projects\CloneArray\CloneArray\bin\Debug\CloneArray.exe.config
+c:\users\sasha\documents\visual studio 2015\Projects\CloneArray\CloneArray\bin\Debug\CloneArray.exe
+c:\users\sasha\documents\visual studio 2015\Projects\CloneArray\CloneArray\bin\Debug\CloneArray.pdb
+c:\users\sasha\documents\visual studio 2015\Projects\CloneArray\CloneArray\obj\Debug\CloneArray.exe
+c:\users\sasha\documents\visual studio 2015\Projects\CloneArray\CloneArray\obj\Debug\CloneArray.pdb

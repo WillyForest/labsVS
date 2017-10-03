@@ -1,0 +1,5 @@
+c:\users\sasha\documents\visual studio 2015\Projects\TestArrayList\TestArrayList\bin\Debug\TestArrayList.exe.config
+c:\users\sasha\documents\visual studio 2015\Projects\TestArrayList\TestArrayList\bin\Debug\TestArrayList.exe
+c:\users\sasha\documents\visual studio 2015\Projects\TestArrayList\TestArrayList\bin\Debug\TestArrayList.pdb
+c:\users\sasha\documents\visual studio 2015\Projects\TestArrayList\TestArrayList\obj\Debug\TestArrayList.exe
+c:\users\sasha\documents\visual studio 2015\Projects\TestArrayList\TestArrayList\obj\Debug\TestArrayList.pdb

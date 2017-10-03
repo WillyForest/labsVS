@@ -1,0 +1,6 @@
+c:\users\sasha\documents\visual studio 2015\Projects\TestParams\TestParams\bin\Debug\TestParams.exe.config
+c:\users\sasha\documents\visual studio 2015\Projects\TestParams\TestParams\bin\Debug\TestParams.exe
+c:\users\sasha\documents\visual studio 2015\Projects\TestParams\TestParams\bin\Debug\TestParams.pdb
+c:\users\sasha\documents\visual studio 2015\Projects\TestParams\TestParams\obj\Debug\TestParams.csprojResolveAssemblyReference.cache
+c:\users\sasha\documents\visual studio 2015\Projects\TestParams\TestParams\obj\Debug\TestParams.exe
+c:\users\sasha\documents\visual studio 2015\Projects\TestParams\TestParams\obj\Debug\TestParams.pdb

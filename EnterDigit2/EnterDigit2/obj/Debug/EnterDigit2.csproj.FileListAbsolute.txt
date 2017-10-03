@@ -1,0 +1,6 @@
+c:\users\sasha\documents\visual studio 2015\Projects\EnterDigit2\EnterDigit2\bin\Debug\EnterDigit2.exe.config
+c:\users\sasha\documents\visual studio 2015\Projects\EnterDigit2\EnterDigit2\obj\Debug\EnterDigit2.csprojResolveAssemblyReference.cache
+c:\users\sasha\documents\visual studio 2015\Projects\EnterDigit2\EnterDigit2\bin\Debug\EnterDigit2.exe
+c:\users\sasha\documents\visual studio 2015\Projects\EnterDigit2\EnterDigit2\bin\Debug\EnterDigit2.pdb
+c:\users\sasha\documents\visual studio 2015\Projects\EnterDigit2\EnterDigit2\obj\Debug\EnterDigit2.exe
+c:\users\sasha\documents\visual studio 2015\Projects\EnterDigit2\EnterDigit2\obj\Debug\EnterDigit2.pdb

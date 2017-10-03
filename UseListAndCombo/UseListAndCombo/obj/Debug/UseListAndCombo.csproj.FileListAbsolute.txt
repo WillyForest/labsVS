@@ -1,0 +1,9 @@
+c:\users\sasha\documents\visual studio 2015\Projects\UseListAndCombo\UseListAndCombo\bin\Debug\UseListAndCombo.exe.config
+c:\users\sasha\documents\visual studio 2015\Projects\UseListAndCombo\UseListAndCombo\bin\Debug\UseListAndCombo.exe
+c:\users\sasha\documents\visual studio 2015\Projects\UseListAndCombo\UseListAndCombo\bin\Debug\UseListAndCombo.pdb
+c:\users\sasha\documents\visual studio 2015\Projects\UseListAndCombo\UseListAndCombo\obj\Debug\UseListAndCombo.csprojResolveAssemblyReference.cache
+c:\users\sasha\documents\visual studio 2015\Projects\UseListAndCombo\UseListAndCombo\obj\Debug\UseListAndCombo.Form1.resources
+c:\users\sasha\documents\visual studio 2015\Projects\UseListAndCombo\UseListAndCombo\obj\Debug\UseListAndCombo.Properties.Resources.resources
+c:\users\sasha\documents\visual studio 2015\Projects\UseListAndCombo\UseListAndCombo\obj\Debug\UseListAndCombo.csproj.GenerateResource.Cache
+c:\users\sasha\documents\visual studio 2015\Projects\UseListAndCombo\UseListAndCombo\obj\Debug\UseListAndCombo.exe
+c:\users\sasha\documents\visual studio 2015\Projects\UseListAndCombo\UseListAndCombo\obj\Debug\UseListAndCombo.pdb

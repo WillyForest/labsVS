@@ -1,0 +1,9 @@
+c:\users\sasha\documents\visual studio 2015\Projects\GKS\GKS\bin\Debug\GKS.exe.config
+c:\users\sasha\documents\visual studio 2015\Projects\GKS\GKS\bin\Debug\GKS.exe
+c:\users\sasha\documents\visual studio 2015\Projects\GKS\GKS\bin\Debug\GKS.pdb
+c:\users\sasha\documents\visual studio 2015\Projects\GKS\GKS\obj\Debug\GKS.csprojResolveAssemblyReference.cache
+c:\users\sasha\documents\visual studio 2015\Projects\GKS\GKS\obj\Debug\GKS.Form1.resources
+c:\users\sasha\documents\visual studio 2015\Projects\GKS\GKS\obj\Debug\GKS.Properties.Resources.resources
+c:\users\sasha\documents\visual studio 2015\Projects\GKS\GKS\obj\Debug\GKS.csproj.GenerateResource.Cache
+c:\users\sasha\documents\visual studio 2015\Projects\GKS\GKS\obj\Debug\GKS.exe
+c:\users\sasha\documents\visual studio 2015\Projects\GKS\GKS\obj\Debug\GKS.pdb

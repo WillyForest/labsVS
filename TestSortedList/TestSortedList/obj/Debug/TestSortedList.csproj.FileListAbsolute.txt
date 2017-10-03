@@ -1,0 +1,5 @@
+c:\users\sasha\documents\visual studio 2015\Projects\TestSortedList\TestSortedList\bin\Debug\TestSortedList.exe.config
+c:\users\sasha\documents\visual studio 2015\Projects\TestSortedList\TestSortedList\bin\Debug\TestSortedList.exe
+c:\users\sasha\documents\visual studio 2015\Projects\TestSortedList\TestSortedList\bin\Debug\TestSortedList.pdb
+c:\users\sasha\documents\visual studio 2015\Projects\TestSortedList\TestSortedList\obj\Debug\TestSortedList.exe
+c:\users\sasha\documents\visual studio 2015\Projects\TestSortedList\TestSortedList\obj\Debug\TestSortedList.pdb

@@ -1,0 +1,8 @@
+c:\users\sasha\documents\visual studio 2015\Projects\Lab2_last\Lab2_last\bin\Debug\Lab2_last.exe.config
+c:\users\sasha\documents\visual studio 2015\Projects\Lab2_last\Lab2_last\bin\Debug\Lab2_last.exe
+c:\users\sasha\documents\visual studio 2015\Projects\Lab2_last\Lab2_last\bin\Debug\Lab2_last.pdb
+c:\users\sasha\documents\visual studio 2015\Projects\Lab2_last\Lab2_last\obj\Debug\Lab2_last.csprojResolveAssemblyReference.cache
+c:\users\sasha\documents\visual studio 2015\Projects\Lab2_last\Lab2_last\obj\Debug\Lab2_last.Properties.Resources.resources
+c:\users\sasha\documents\visual studio 2015\Projects\Lab2_last\Lab2_last\obj\Debug\Lab2_last.csproj.GenerateResource.Cache
+c:\users\sasha\documents\visual studio 2015\Projects\Lab2_last\Lab2_last\obj\Debug\Lab2_last.exe
+c:\users\sasha\documents\visual studio 2015\Projects\Lab2_last\Lab2_last\obj\Debug\Lab2_last.pdb

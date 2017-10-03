@@ -1,0 +1,9 @@
+c:\users\sasha\documents\visual studio 2015\Projects\TestMenuV2\TestMenuV2\bin\Debug\TestMenuV2.exe.config
+c:\users\sasha\documents\visual studio 2015\Projects\TestMenuV2\TestMenuV2\bin\Debug\TestMenuV2.exe
+c:\users\sasha\documents\visual studio 2015\Projects\TestMenuV2\TestMenuV2\bin\Debug\TestMenuV2.pdb
+c:\users\sasha\documents\visual studio 2015\Projects\TestMenuV2\TestMenuV2\obj\Debug\TestMenuV2.csprojResolveAssemblyReference.cache
+c:\users\sasha\documents\visual studio 2015\Projects\TestMenuV2\TestMenuV2\obj\Debug\TestMenuV2.Form1.resources
+c:\users\sasha\documents\visual studio 2015\Projects\TestMenuV2\TestMenuV2\obj\Debug\TestMenuV2.Properties.Resources.resources
+c:\users\sasha\documents\visual studio 2015\Projects\TestMenuV2\TestMenuV2\obj\Debug\TestMenuV2.csproj.GenerateResource.Cache
+c:\users\sasha\documents\visual studio 2015\Projects\TestMenuV2\TestMenuV2\obj\Debug\TestMenuV2.exe
+c:\users\sasha\documents\visual studio 2015\Projects\TestMenuV2\TestMenuV2\obj\Debug\TestMenuV2.pdb

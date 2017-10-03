@@ -1,0 +1,5 @@
+c:\users\sasha\documents\visual studio 2015\Projects\TestStack\TestStack\bin\Debug\TestStack.exe.config
+c:\users\sasha\documents\visual studio 2015\Projects\TestStack\TestStack\bin\Debug\TestStack.exe
+c:\users\sasha\documents\visual studio 2015\Projects\TestStack\TestStack\bin\Debug\TestStack.pdb
+c:\users\sasha\documents\visual studio 2015\Projects\TestStack\TestStack\obj\Debug\TestStack.exe
+c:\users\sasha\documents\visual studio 2015\Projects\TestStack\TestStack\obj\Debug\TestStack.pdb

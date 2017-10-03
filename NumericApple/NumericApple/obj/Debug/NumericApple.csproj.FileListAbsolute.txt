@@ -1,0 +1,6 @@
+c:\users\sasha\documents\visual studio 2015\Projects\NumericApple\NumericApple\bin\Debug\NumericApple.exe.config
+c:\users\sasha\documents\visual studio 2015\Projects\NumericApple\NumericApple\bin\Debug\NumericApple.exe
+c:\users\sasha\documents\visual studio 2015\Projects\NumericApple\NumericApple\bin\Debug\NumericApple.pdb
+c:\users\sasha\documents\visual studio 2015\Projects\NumericApple\NumericApple\obj\Debug\NumericApple.csprojResolveAssemblyReference.cache
+c:\users\sasha\documents\visual studio 2015\Projects\NumericApple\NumericApple\obj\Debug\NumericApple.exe
+c:\users\sasha\documents\visual studio 2015\Projects\NumericApple\NumericApple\obj\Debug\NumericApple.pdb

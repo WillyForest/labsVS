@@ -1,0 +1,6 @@
+c:\users\sasha\documents\visual studio 2015\Projects\lab1_2_dop\lab1_2_dop\bin\Debug\lab1_2_dop.exe.config
+c:\users\sasha\documents\visual studio 2015\Projects\lab1_2_dop\lab1_2_dop\bin\Debug\lab1_2_dop.exe
+c:\users\sasha\documents\visual studio 2015\Projects\lab1_2_dop\lab1_2_dop\bin\Debug\lab1_2_dop.pdb
+c:\users\sasha\documents\visual studio 2015\Projects\lab1_2_dop\lab1_2_dop\obj\Debug\lab1_2_dop.csprojResolveAssemblyReference.cache
+c:\users\sasha\documents\visual studio 2015\Projects\lab1_2_dop\lab1_2_dop\obj\Debug\lab1_2_dop.exe
+c:\users\sasha\documents\visual studio 2015\Projects\lab1_2_dop\lab1_2_dop\obj\Debug\lab1_2_dop.pdb

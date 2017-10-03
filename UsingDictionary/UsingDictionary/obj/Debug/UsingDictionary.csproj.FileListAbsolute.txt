@@ -1,0 +1,5 @@
+c:\users\sasha\documents\visual studio 2015\Projects\UsingDictionary\UsingDictionary\bin\Debug\UsingDictionary.exe.config
+c:\users\sasha\documents\visual studio 2015\Projects\UsingDictionary\UsingDictionary\bin\Debug\UsingDictionary.exe
+c:\users\sasha\documents\visual studio 2015\Projects\UsingDictionary\UsingDictionary\bin\Debug\UsingDictionary.pdb
+c:\users\sasha\documents\visual studio 2015\Projects\UsingDictionary\UsingDictionary\obj\Debug\UsingDictionary.exe
+c:\users\sasha\documents\visual studio 2015\Projects\UsingDictionary\UsingDictionary\obj\Debug\UsingDictionary.pdb

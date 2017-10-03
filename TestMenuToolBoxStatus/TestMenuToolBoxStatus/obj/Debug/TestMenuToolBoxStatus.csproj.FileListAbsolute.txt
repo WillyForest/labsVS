@@ -1,0 +1,9 @@
+c:\users\sasha\documents\visual studio 2015\Projects\TestMenuToolBoxStatus\TestMenuToolBoxStatus\bin\Debug\TestMenuToolBoxStatus.exe.config
+c:\users\sasha\documents\visual studio 2015\Projects\TestMenuToolBoxStatus\TestMenuToolBoxStatus\bin\Debug\TestMenuToolBoxStatus.exe
+c:\users\sasha\documents\visual studio 2015\Projects\TestMenuToolBoxStatus\TestMenuToolBoxStatus\bin\Debug\TestMenuToolBoxStatus.pdb
+c:\users\sasha\documents\visual studio 2015\Projects\TestMenuToolBoxStatus\TestMenuToolBoxStatus\obj\Debug\TestMenuToolBoxStatus.csprojResolveAssemblyReference.cache
+c:\users\sasha\documents\visual studio 2015\Projects\TestMenuToolBoxStatus\TestMenuToolBoxStatus\obj\Debug\TestMenuToolBoxStatus.Form1.resources
+c:\users\sasha\documents\visual studio 2015\Projects\TestMenuToolBoxStatus\TestMenuToolBoxStatus\obj\Debug\TestMenuToolBoxStatus.Properties.Resources.resources
+c:\users\sasha\documents\visual studio 2015\Projects\TestMenuToolBoxStatus\TestMenuToolBoxStatus\obj\Debug\TestMenuToolBoxStatus.csproj.GenerateResource.Cache
+c:\users\sasha\documents\visual studio 2015\Projects\TestMenuToolBoxStatus\TestMenuToolBoxStatus\obj\Debug\TestMenuToolBoxStatus.exe
+c:\users\sasha\documents\visual studio 2015\Projects\TestMenuToolBoxStatus\TestMenuToolBoxStatus\obj\Debug\TestMenuToolBoxStatus.pdb

@@ -1,0 +1,6 @@
+c:\users\sasha\documents\visual studio 2015\Projects\SortTextArray\SortTextArray\bin\Debug\SortTextArray.exe.config
+c:\users\sasha\documents\visual studio 2015\Projects\SortTextArray\SortTextArray\bin\Debug\SortTextArray.exe
+c:\users\sasha\documents\visual studio 2015\Projects\SortTextArray\SortTextArray\bin\Debug\SortTextArray.pdb
+c:\users\sasha\documents\visual studio 2015\Projects\SortTextArray\SortTextArray\obj\Debug\SortTextArray.csprojResolveAssemblyReference.cache
+c:\users\sasha\documents\visual studio 2015\Projects\SortTextArray\SortTextArray\obj\Debug\SortTextArray.exe
+c:\users\sasha\documents\visual studio 2015\Projects\SortTextArray\SortTextArray\obj\Debug\SortTextArray.pdb

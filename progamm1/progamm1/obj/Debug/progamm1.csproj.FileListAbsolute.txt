@@ -1,0 +1,10 @@
+c:\users\sasha\documents\visual studio 2015\Projects\progamm1\progamm1\bin\Debug\progamm1.exe.config
+c:\users\sasha\documents\visual studio 2015\Projects\progamm1\progamm1\bin\Debug\progamm1.exe
+c:\users\sasha\documents\visual studio 2015\Projects\progamm1\progamm1\bin\Debug\progamm1.pdb
+c:\users\sasha\documents\visual studio 2015\Projects\progamm1\progamm1\obj\Debug\progamm1.csprojResolveAssemblyReference.cache
+c:\users\sasha\documents\visual studio 2015\Projects\progamm1\progamm1\obj\Debug\progamm1.Form1.resources
+c:\users\sasha\documents\visual studio 2015\Projects\progamm1\progamm1\obj\Debug\progamm1.Properties.Resources.resources
+c:\users\sasha\documents\visual studio 2015\Projects\progamm1\progamm1\obj\Debug\progamm1.csproj.GenerateResource.Cache
+c:\users\sasha\documents\visual studio 2015\Projects\progamm1\progamm1\obj\Debug\progamm1.exe
+c:\users\sasha\documents\visual studio 2015\Projects\progamm1\progamm1\obj\Debug\progamm1.pdb
+c:\users\sasha\documents\visual studio 2015\Projects\progamm1\progamm1\obj\Debug\progamm1.Form2.resources

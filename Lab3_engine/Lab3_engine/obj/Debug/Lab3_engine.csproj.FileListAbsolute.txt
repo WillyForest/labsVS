@@ -1,0 +1,6 @@
+c:\users\sasha\documents\visual studio 2015\Projects\Lab3_engine\Lab3_engine\bin\Debug\Lab3_engine.exe.config
+c:\users\sasha\documents\visual studio 2015\Projects\Lab3_engine\Lab3_engine\obj\Debug\Lab3_engine.csprojResolveAssemblyReference.cache
+c:\users\sasha\documents\visual studio 2015\Projects\Lab3_engine\Lab3_engine\bin\Debug\Lab3_engine.exe
+c:\users\sasha\documents\visual studio 2015\Projects\Lab3_engine\Lab3_engine\bin\Debug\Lab3_engine.pdb
+c:\users\sasha\documents\visual studio 2015\Projects\Lab3_engine\Lab3_engine\obj\Debug\Lab3_engine.exe
+c:\users\sasha\documents\visual studio 2015\Projects\Lab3_engine\Lab3_engine\obj\Debug\Lab3_engine.pdb
