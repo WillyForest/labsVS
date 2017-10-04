@@ -22,7 +22,7 @@ namespace GKS_lab1
             strs.Add(generateTextbox());
             btns.Add(generateButton("Добавить", 200, 20));
             btns[0].Click += new EventHandler(btn0_Click);
-            btns.Add(generateButton("Далее", 200, 50));
+            btns.Add(generateButton("Матрица", 200, 50));
             btns[1].Click += new EventHandler(btn1_Click);
             
         }
@@ -98,6 +98,34 @@ namespace GKS_lab1
             matrix = new bool[strs.Count, variables.Count];
             setMatrix();
             showMatrix();
+            btns.Add(generateButton("Далeе", 200, 80));
+            btns[2].Click += new EventHandler(btn2_Click);
+        }
+
+        private void btn2_Click(object sender, EventArgs e)
+        {   /* функция удаления всех элементов с формы
+            foreach(TextBox tb in strs)
+            {
+                this.Controls.Remove(tb);
+                tb.Dispose();
+            }
+            foreach(Button bt in btns)
+            {
+                this.Controls.Remove(bt);
+                bt.Dispose();
+            }
+            label1.Text = "";
+            label2.Text = "";
+            for (int i = 0; i < btns.Count; i++)
+            {
+                btns.RemoveAt(0);
+            }
+            for (int i = 0; i < strs.Count; i++)
+            {
+                strs.RemoveAt(0);
+            }*/
+            this.Size = new Size(600, 600);
+
         }
 
         private void btn0_Click(object sender, EventArgs e)
