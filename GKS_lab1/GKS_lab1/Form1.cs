@@ -16,6 +16,7 @@ namespace GKS_lab1
         List<Button> btns = new List<Button>();
         List<String> variables = new List<String>();
         bool[,] matrix;
+        int[,] compared;
         public Form1()
         {
             InitializeComponent();
@@ -125,6 +126,71 @@ namespace GKS_lab1
                 strs.RemoveAt(0);
             }*/
             this.Size = new Size(600, 600);
+            setComparedMatrix();
+        }
+
+        private void setComparedMatrix()
+        {
+            int rows = strs.Count;
+            compared = new int[rows, rows];
+            for (int y = 0; y < rows; y++)
+            {
+                compared[y, y] = -1;
+            }
+
+
+            int i = 0, j = 0, k = 1;
+            int lim = rows;
+            while (true)
+            {
+                if (matrix[i, j] == matrix[i + k, j])
+                {
+                    compared[i + k, i] += 1;
+                }
+                j++;
+                if (j == variables.Count)
+                {
+                    j = 0;
+                    k += 1;
+                    if (k == lim)
+                    {
+                        k = 1;
+                        i++;
+                        lim--;
+                        if (i == rows - 1)
+                        {
+                            break;
+                        }
+                    }
+                }
+
+            }
+            for (i = 0; i < rows; i++)
+            {
+                for (j = 0; j < rows; j++)
+                {
+                    if (i != j)
+                    {
+                        compared[i, j] = compared[j, i];
+                    }
+                }
+            }
+            label3.Text = "Полученный массив:\n";
+            for (i = 0; i < rows; i++)
+            {
+                for (j = 0; j < rows; j++)
+                {
+                    label3.Text += compared[i, j].ToString() + " ";
+                }
+                label3.Text += "\n";
+            }
+
+            /*if (array[j, i] == array[j, i+1])
+            {
+                compared[0, 1] += 1;
+                label1.Text = compared[0, 1] + "";
+            }*/
+
 
         }
 
