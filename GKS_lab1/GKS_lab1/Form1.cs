@@ -15,6 +15,7 @@ namespace GKS_lab1
         List<TextBox> strs = new List<TextBox>();
         List<Button> btns = new List<Button>();
         List<String> variables = new List<String>();
+        bool[,] matrix;
         public Form1()
         {
             InitializeComponent();
@@ -23,7 +24,54 @@ namespace GKS_lab1
             btns[0].Click += new EventHandler(btn0_Click);
             btns.Add(generateButton("Далее", 200, 50));
             btns[1].Click += new EventHandler(btn1_Click);
+            
+        }
 
+        private void showMatrix()
+        {
+
+            label2.Location = new Point(20, 30 + 30 * strs.Count);
+            label2.Text = "   ";
+            foreach (string s in variables)
+            {
+                label2.Text += s + " ";
+            }
+
+            for (int i = 0; i < strs.Count; i++)
+            {
+                label2.Text += "\n" + (i + 1) + "  ";
+                for (int j = 0; j < variables.Count; j++)
+                {
+                    if (matrix[i, j])
+                        label2.Text += " 1  ";
+                    else
+                        if (!matrix[i, j])
+                        label2.Text += " 0  ";
+                }
+                
+            }
+        }
+
+        private void setMatrix()
+        {
+            int j = 0;
+            foreach (TextBox s in strs)
+            {
+                string[] tempStr = new String[s.Text.Length];
+                tempStr = s.Text.Split(' ');
+                for (int i = 0; i < variables.Count; i++)
+                {
+                    if (tempStr.Contains(variables[i]))
+                    {
+                        matrix[j, i] = true;
+                    } else
+                    {
+                        matrix[j, i] = false;
+                    }
+
+                }
+                j++;
+            }
         }
 
         private void btn1_Click(object sender, EventArgs e)
@@ -43,11 +91,13 @@ namespace GKS_lab1
                     if (!variables.Contains(tempStr[i]))
                     {
                         variables.Add(tempStr[i]);
-                        label1.Text += tempStr[i];
                     }
                         
                 }
             }
+            matrix = new bool[strs.Count, variables.Count];
+            setMatrix();
+            showMatrix();
         }
 
         private void btn0_Click(object sender, EventArgs e)
