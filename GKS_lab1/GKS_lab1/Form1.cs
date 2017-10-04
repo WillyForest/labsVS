@@ -14,13 +14,40 @@ namespace GKS_lab1
     {
         List<TextBox> strs = new List<TextBox>();
         List<Button> btns = new List<Button>();
+        List<String> variables = new List<String>();
         public Form1()
         {
             InitializeComponent();
             strs.Add(generateTextbox());
-            btns.Add(generateButtons());
+            btns.Add(generateButton("Добавить", 200, 20));
             btns[0].Click += new EventHandler(btn0_Click);
+            btns.Add(generateButton("Далее", 200, 50));
+            btns[1].Click += new EventHandler(btn1_Click);
 
+        }
+
+        private void btn1_Click(object sender, EventArgs e)
+        {
+            if (strs[strs.Count - 1].Text == "") //если последнее поле является пустым - удаляем его
+            {                                       
+                strs[strs.Count - 1].Dispose();
+                this.Controls.Remove(strs[strs.Count - 1]);
+                strs.RemoveAt(strs.Count - 1); 
+            }
+            foreach(TextBox s in strs)
+            {
+                string[] tempStr = new String[s.Text.Length];
+                tempStr = s.Text.Split(' ');
+                for (int i = 0; i < tempStr.Length; i++)
+                {
+                    if (!variables.Contains(tempStr[i]))
+                    {
+                        variables.Add(tempStr[i]);
+                        label1.Text += tempStr[i];
+                    }
+                        
+                }
+            }
         }
 
         private void btn0_Click(object sender, EventArgs e)
@@ -34,12 +61,12 @@ namespace GKS_lab1
             }
         }
 
-        private Button generateButtons()
+        private Button generateButton(string name, int x, int y)
         {
             Button btn = new Button();
-            btn.Text = "Добавить";
+            btn.Text = name;
             btn.Size = new Size(80, 20);
-            btn.Location = new Point(200, 20);
+            btn.Location = new Point(x, y);
             this.Controls.Add(btn);
             return btn;
         }
