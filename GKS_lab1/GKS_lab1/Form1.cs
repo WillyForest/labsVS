@@ -14,7 +14,10 @@ namespace GKS_lab1
     {
         List<TextBox> strs = new List<TextBox>();
         List<Button> btns = new List<Button>();
-        List<String> variables = new List<String>();
+        List<string> variables = new List<string>();
+        List<string> alreadyUsedVars = new List<string>();
+        List<string> notUsedVars = new List<string>();
+        List<List<string>> groups = new List<List<string>>();
         bool[,] matrix;
         int[,] compared;
         public Form1()
@@ -25,7 +28,23 @@ namespace GKS_lab1
             btns[0].Click += new EventHandler(btn0_Click);
             btns.Add(generateButton("Матрица", 200, 50));
             btns[1].Click += new EventHandler(btn1_Click);
-            
+            label1.AutoSize = true;
+            label2.AutoSize = true;
+            label3.AutoSize = true;
+        }
+
+        private int findMaxElem()
+        {
+            int maxElem = 0;
+            for (int i = 0; i < strs.Count; i++)
+            {
+                for (int j = 0; j < strs.Count; j++)
+                {
+                    if (compared[i, j] > maxElem)
+                        maxElem = compared[i, j];
+                }
+            }
+            return maxElem;
         }
 
         private void showMatrix()
@@ -128,6 +147,86 @@ namespace GKS_lab1
             this.Size = new Size(600, 600);
             setComparedMatrix();
             label3.Location = new Point(300, 20);
+            label1.Text = findMaxElem() + "";
+            setGroups();
+        }
+
+        
+
+        private void setGroups()
+        {
+            int elem = findMaxElem();
+            List<string> group = new List<string>();
+            
+            int i = 0;
+            while (i < 50)
+            {
+                
+                groups.Add(group);
+                groups[i] = findRowsWith(elem, groups[i]);
+                
+                while (group.Count < 2)
+                {
+                    elem--;
+                    groups[i] = findRowsWith(elem, groups[i]);
+                }
+                
+                i++;
+                if (variables.Count == alreadyUsedVars.Count)
+                {
+                    break;
+                }
+                checkSimilary(variables, alreadyUsedVars);
+                label2.Text = notUsedVars[0] + "|";
+                if (notUsedVars.Count < 2)
+                {
+                    group.Add(notUsedVars[0]);
+                    alreadyUsedVars.Add(notUsedVars[0]);
+                    notUsedVars.RemoveAt(0);
+                    if (variables.Count == alreadyUsedVars.Count)
+                    {
+                        break;
+                    }
+                }
+                foreach (string s in group)
+                {
+                    label1.Text += s;
+                }
+                label1.Text += "\n";
+                elem--;
+            }
+            
+            
+        }
+
+        private int checkSimilary(List<string> variables, List<string> alreadyUsedVars)
+        {
+            int i = 0;
+            foreach(string s in variables)
+            {
+                if (!alreadyUsedVars.Contains(s))
+                {
+                    notUsedVars.Add(s);
+                    i = 1;
+                }
+            }
+            return i;
+        }
+
+        private List<string> findRowsWith(int elem, List<string> group)
+        {
+            for (int i = 0; i < strs.Count; i++)
+            {
+                for (int j = 0; j < strs.Count; j++)
+                {
+                    if (compared[i, j] == elem && !alreadyUsedVars.Contains(i + ""))
+                    {
+                        group.Add(i + "");
+                        alreadyUsedVars.Add(i + "");
+                    }
+                }
+            }
+            return group;
         }
 
         private void setComparedMatrix()
