@@ -158,63 +158,81 @@ namespace GKS_lab1
             int elem = findMaxElem();
             List<string> group = new List<string>();
             
-            int i = 0;
-            while (i < 50)
+            //int num = 0;
+            int i = -1;
+            label2.Text = "";
+            while (true)
             {
-                
+                i++;
                 groups.Add(group);
+                if (i > 0)
+                    label2.Text += "\ngroup[0] = " + groups[i][0];
                 groups[i] = findRowsWith(elem, groups[i]);
-                
-                while (group.Count < 2)
+                label2.Text += "Добавили группу " + i + " elem = " + elem;
+                foreach (string c in groups[i])
+                {
+                    label2.Text += "\n groups[i][] = " + c;
+                }
+                label2.Text += "\n";
+                while (groups[i].Count < 2)
                 {
                     elem--;
                     groups[i] = findRowsWith(elem, groups[i]);
                 }
+                /*num = strs.Count;
+                foreach (List<string> g in groups)
+                {
+                     num -= g.Count;
+                }*/
+
+                //label1.Text = num + "";
+                //label1.Text = strs.Count + "||" + alreadyUsedVars.Count;
+                if (strs.Count - alreadyUsedVars.Count == 1)
+                {
+                    List<string> tempGroup = new List<string>();
+                    while (elem > 0)
+                    {
+                        elem--;
+                        tempGroup = findRowsWith(elem, tempGroup);
+                        
+                        
+                    }
+
+                        groups[i].Add(tempGroup[0]);
+                        if (!alreadyUsedVars.Contains(tempGroup[0]))
+                            alreadyUsedVars.Add(tempGroup[0]);
+                    //groups[i].Add(tempGroup[0]);
+                }
+                //label2.Text = strs.Count + " vs " + alreadyUsedVars.Count + "";
+                //label2.Text += "Проход №" + i + "\n";
+                foreach (string s in groups[i])
+                {
+                    label2.Text += s;
+                }
+                label2.Text += "\n";
+
                 
-                i++;
-                if (variables.Count == alreadyUsedVars.Count)
+
+                if (strs.Count == alreadyUsedVars.Count)
                 {
                     break;
                 }
-                checkSimilary(variables, alreadyUsedVars);
-                label2.Text = notUsedVars[0] + "|";
-                if (notUsedVars.Count < 2)
-                {
-                    group.Add(notUsedVars[0]);
-                    alreadyUsedVars.Add(notUsedVars[0]);
-                    notUsedVars.RemoveAt(0);
-                    if (variables.Count == alreadyUsedVars.Count)
-                    {
-                        break;
-                    }
-                }
-                foreach (string s in group)
-                {
-                    label1.Text += s;
-                }
-                label1.Text += "\n";
+                
+                
                 elem--;
             }
             
             
         }
 
-        private int checkSimilary(List<string> variables, List<string> alreadyUsedVars)
-        {
-            int i = 0;
-            foreach(string s in variables)
-            {
-                if (!alreadyUsedVars.Contains(s))
-                {
-                    notUsedVars.Add(s);
-                    i = 1;
-                }
-            }
-            return i;
-        }
+
 
         private List<string> findRowsWith(int elem, List<string> group)
         {
+            for (int i = 0; i < group.Count; i++)
+            {
+                //group.RemoveAt(0);
+            }
             for (int i = 0; i < strs.Count; i++)
             {
                 for (int j = 0; j < strs.Count; j++)
@@ -226,6 +244,21 @@ namespace GKS_lab1
                     }
                 }
             }
+            /*List<string> todel = new List<string>();
+            foreach (List<string> g in groups)
+            {
+                foreach (string gr in g)
+                {
+                    if (group.Contains(gr))
+                    {
+                        todel.Add(gr);
+                    }
+                }
+            }
+            foreach(string c in todel)
+            {
+                group.Remove(c);
+            }*/
             return group;
         }
 
