@@ -127,6 +127,7 @@ namespace GKS_lab1
             }*/
             this.Size = new Size(600, 600);
             setComparedMatrix();
+            label3.Location = new Point(300, 20);
         }
 
         private void setComparedMatrix()
@@ -184,14 +185,6 @@ namespace GKS_lab1
                 }
                 label3.Text += "\n";
             }
-
-            /*if (array[j, i] == array[j, i+1])
-            {
-                compared[0, 1] += 1;
-                label1.Text = compared[0, 1] + "";
-            }*/
-
-
         }
 
         private void btn0_Click(object sender, EventArgs e)
