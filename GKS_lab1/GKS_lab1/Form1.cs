@@ -17,6 +17,7 @@ namespace GKS_lab1
         List<string> variables = new List<string>();
         List<string> alreadyUsedVars = new List<string>();
         List<string> notUsedVars = new List<string>();
+        List<string> allVars = new List<string>();
         List<List<string>> groups = new List<List<string>>();
         bool[,] matrix;
         int[,] compared;
@@ -157,61 +158,67 @@ namespace GKS_lab1
         {
             int elem = findMaxElem();
             List<string> group = new List<string>();
-            
-            //int num = 0;
             int i = -1;
-            label2.Text = "";
+            //label2.Text = "";
             while (true)
             {
                 i++;
                 groups.Add(group);
-                if (i > 0)
-                    label2.Text += "\ngroup[0] = " + groups[i][0];
-                groups[i] = findRowsWith(elem, groups[i]);
-                label2.Text += "Добавили группу " + i + " elem = " + elem;
-                foreach (string c in groups[i])
-                {
-                    label2.Text += "\n groups[i][] = " + c;
-                }
-                label2.Text += "\n";
+                // if (i > 0)
+                //    label2.Text += "\ngroup[0] = " + groups[i][0];
+                groups[i] = findRowsWith(elem);
+                //label2.Text += "Добавили группу " + i + " elem = " + elem;
+                //foreach (string c in groups[i])
+               // {
+                //    label2.Text += "\n groups[i][] = " + c;
+                //}
+                //label2.Text += "\n";
                 while (groups[i].Count < 2)
                 {
                     elem--;
-                    groups[i] = findRowsWith(elem, groups[i]);
+                    List<string> tempGroup = new List<string>();
+                    tempGroup = findRowsWith(elem);
+                    foreach(string tg in tempGroup)
+                    {
+                        groups[i].Add(tg);
+                    }
+                    if (elem < 0)
+                    {
+                        label1.Text = "WARNING";
+                        break;
+                    }
+                    
                 }
-                /*num = strs.Count;
-                foreach (List<string> g in groups)
-                {
-                     num -= g.Count;
-                }*/
-
-                //label1.Text = num + "";
-                //label1.Text = strs.Count + "||" + alreadyUsedVars.Count;
+                
                 if (strs.Count - alreadyUsedVars.Count == 1)
                 {
-                    List<string> tempGroup = new List<string>();
+                    checkNotUsedVars();
+                    //label2.Text += "\nCHECK\n notUsedVars[0] = " + notUsedVars[0] + "\nEND\n";
+                    groups[i].Add(notUsedVars[0]);
+                    alreadyUsedVars.Add(notUsedVars[0]);
+                    /*List<string> tempGroup = new List<string>();
                     while (elem > 0)
                     {
                         elem--;
-                        tempGroup = findRowsWith(elem, tempGroup);
+                        tempGroup = findRowsWith(elem);
                         
                         
                     }
 
                         groups[i].Add(tempGroup[0]);
                         if (!alreadyUsedVars.Contains(tempGroup[0]))
-                            alreadyUsedVars.Add(tempGroup[0]);
+                            alreadyUsedVars.Add(tempGroup[0]);*/
                     //groups[i].Add(tempGroup[0]);
                 }
                 //label2.Text = strs.Count + " vs " + alreadyUsedVars.Count + "";
-                //label2.Text += "Проход №" + i + "\n";
+                label4.Location = new Point(300, strs.Count * 30 + 30);
+                label4.Text += "Группа №" + (i + 1) + "\n";
                 foreach (string s in groups[i])
                 {
-                    label2.Text += s;
+                    label4.Text += s + ", ";
                 }
-                label2.Text += "\n";
-
-                
+                label4.Text += "\n";
+                label1.Text = "";
 
                 if (strs.Count == alreadyUsedVars.Count)
                 {
@@ -225,14 +232,30 @@ namespace GKS_lab1
             
         }
 
-
-
-        private List<string> findRowsWith(int elem, List<string> group)
+        private void checkNotUsedVars()
         {
-            for (int i = 0; i < group.Count; i++)
+            int i = 0;
+            foreach (TextBox str in strs)
             {
-                //group.RemoveAt(0);
+                allVars.Add(i + "");
+                i++;
             }
+            foreach (string var in allVars)
+            {
+                if (!alreadyUsedVars.Contains(var))
+                {
+                    notUsedVars.Add(var);
+                }
+            }
+        }
+
+        private List<string> findRowsWith(int elem)
+        {
+            List<string> group = new List<string>();
+            //for (int i = 0; i < group.Count; i++)
+            //{
+                //group.RemoveAt(0);
+            //}
             for (int i = 0; i < strs.Count; i++)
             {
                 for (int j = 0; j < strs.Count; j++)
