@@ -22,7 +22,8 @@ namespace Lab3_engine
             this.model = model;
             this.typeOfFuel = "Не указано";
         }
-        public Engine(string model, int numofCylinders, int powerful, double volume, double fuelConsumption, string typeOfFuel, int torque)
+        public Engine(string model, int numofCylinders, int powerful, double volume, double fuelConsumption, 
+            string typeOfFuel, int torque)
         {
             this.model = model;
             this.typeOfFuel = typeOfFuel;
