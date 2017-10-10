@@ -32,8 +32,9 @@ namespace lab5
     public class Faculty
     {
         string name;
-        int course;
         List<string> groups = new List<string>();
+        int course;
+
         public Faculty(string name, int course, List<string> groups)
         {
             this.name = name;
@@ -43,6 +44,21 @@ namespace lab5
                 this.groups.Add(group);
             }
         }
+
+        public string getName()
+        {
+            return name;
+        }
+        public int getCourse()
+        {
+            return course;
+        }
+        public List<string> getGroups()
+        {
+            return groups;
+        }
+        
+        
     }
     public class XPredmetList
     {
