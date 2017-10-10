@@ -191,7 +191,7 @@ namespace GKS_lab1
                 label4.Text += "Группа №" + (i + 1) + "\n";
                 foreach (string s in groups[i])
                 {
-                    label4.Text += s + ", ";
+                    label4.Text += (Int32.Parse(s) + 1) + ", ";// s + ", ";
                 }
                 label4.Text += "\n";
                 label1.Text = "";
