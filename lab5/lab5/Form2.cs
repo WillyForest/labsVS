@@ -27,8 +27,23 @@ namespace lab5
             comboBox5.Items.Add('3');
             comboBox5.Items.Add('4');
             comboBox5.Items.Add('5');
-        }
 
+
+            XmlDocument xDoc = new XmlDocument();
+            xDoc.Load("xmltext.xml");
+            //объявляем необходимые переменные
+            XmlElement xRoot = xDoc.DocumentElement;
+            if (xRoot.HasChildNodes)
+            {
+                foreach (XmlElement s in xRoot.ChildNodes)
+                {
+                    if ((s.FirstChild.Name + "") == "faculty")
+                    {
+                        comboBox1.Items.Add(s.FirstChild.InnerText);
+                    }
+                }
+            }
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             comboBox1.Items.Add(textBox1.Text);
@@ -66,10 +81,10 @@ namespace lab5
             XmlElement fNameElem = xDoc.CreateElement("firstName");
             XmlElement sNameElem = xDoc.CreateElement("surName");
             XmlElement marks = xDoc.CreateElement("marks");
-            XmlElement predmet = xDoc.CreateElement("predmet");
-            XmlElement code = xDoc.CreateElement("code");
-            XmlElement mark = xDoc.CreateElement("mark");
-            XmlElement examDate = xDoc.CreateElement("examDate");
+            //XmlElement predmet = xDoc.CreateElement("predmet");
+            //XmlElement code = xDoc.CreateElement("code");
+            //XmlElement mark = xDoc.CreateElement("mark");
+            //XmlElement examDate = xDoc.CreateElement("examDate");
             //строим структуру хмл документа
             xRoot.AppendChild(studentElem);
             studentElem.AppendChild(facElem);
@@ -78,10 +93,23 @@ namespace lab5
             studentElem.AppendChild(sNameElem);
             studentElem.AppendChild(fNameElem);
             studentElem.AppendChild(marks);
-            marks.AppendChild(predmet);
-            predmet.AppendChild(code);
-            predmet.AppendChild(mark);
-            predmet.AppendChild(examDate);
+            foreach (string it in listbox1.Items)
+            {
+                XmlElement predmet = xDoc.CreateElement("predmet");
+                XmlElement code = xDoc.CreateElement("code");
+                XmlElement mark = xDoc.CreateElement("mark");
+                XmlElement examDate = xDoc.CreateElement("examDate");
+                marks.AppendChild(predmet);
+                //temp.AppendChild(xDoc.CreateTextNode());
+                //marks.AppendChild(predmet);
+                predmet.AppendChild(code);
+                predmet.AppendChild(mark);
+                predmet.AppendChild(examDate);
+                code.AppendChild(xDoc.CreateTextNode(it.Split(' ')[0]));
+                mark.AppendChild(xDoc.CreateTextNode(it.Split(' ')[2]));
+                examDate.AppendChild(xDoc.CreateTextNode(it.Split(' ')[3] + " " + it.Split(' ')[4] + " " + it.Split(' ')[5]));
+            }
+                
             /*//заполняем примером
             courseElem.AppendChild(xDoc.CreateTextNode("1"));
             facElem.AppendChild(xDoc.CreateTextNode("FICT"));
@@ -98,9 +126,9 @@ namespace lab5
             groupElem.AppendChild(xDoc.CreateTextNode(comboBox3.SelectedItem + ""));
             fNameElem.AppendChild(xDoc.CreateTextNode(textBox4.Text));
             sNameElem.AppendChild(xDoc.CreateTextNode(textBox3.Text));
-            code.AppendChild(xDoc.CreateTextNode((comboBox4.SelectedItem + "").Split(' ')[0]));
-            mark.AppendChild(xDoc.CreateTextNode(comboBox5.SelectedItem + ""));
-            examDate.AppendChild(xDoc.CreateTextNode(dateTimePicker1.Text));
+            //code.AppendChild(xDoc.CreateTextNode((listbox1.Items).Split(' ')[0]));
+            //mark.AppendChild(xDoc.CreateTextNode(comboBox5.SelectedItem + ""));
+            //examDate.AppendChild(xDoc.CreateTextNode(dateTimePicker1.Text));
 
             xDoc.Save("xmltext.xml");
 
