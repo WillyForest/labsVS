@@ -82,7 +82,7 @@ namespace lab5
             predmet.AppendChild(code);
             predmet.AppendChild(mark);
             predmet.AppendChild(examDate);
-            //заполняем примером
+            /*//заполняем примером
             courseElem.AppendChild(xDoc.CreateTextNode("1"));
             facElem.AppendChild(xDoc.CreateTextNode("FICT"));
             groupElem.AppendChild(xDoc.CreateTextNode("IK-51"));
@@ -90,7 +90,18 @@ namespace lab5
             sNameElem.AppendChild(xDoc.CreateTextNode("Козоріз"));
             code.AppendChild(xDoc.CreateTextNode("1"));
             mark.AppendChild(xDoc.CreateTextNode("4"));
-            examDate.AppendChild(xDoc.CreateTextNode("21/01/2017"));
+            examDate.AppendChild(xDoc.CreateTextNode("21/01/2017"));*/
+
+            //заполняем из формы
+            courseElem.AppendChild(xDoc.CreateTextNode(comboBox2.SelectedItem + ""));
+            facElem.AppendChild(xDoc.CreateTextNode(comboBox1.SelectedItem + ""));
+            groupElem.AppendChild(xDoc.CreateTextNode(comboBox3.SelectedItem + ""));
+            fNameElem.AppendChild(xDoc.CreateTextNode(textBox4.Text));
+            sNameElem.AppendChild(xDoc.CreateTextNode(textBox3.Text));
+            code.AppendChild(xDoc.CreateTextNode((comboBox4.SelectedItem + "").Split(' ')[0]));
+            mark.AppendChild(xDoc.CreateTextNode(comboBox5.SelectedItem + ""));
+            examDate.AppendChild(xDoc.CreateTextNode(dateTimePicker1.Text));
+
             xDoc.Save("xmltext.xml");
 
             /*foreach (Faculty f in facs)
