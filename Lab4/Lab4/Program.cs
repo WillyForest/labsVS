@@ -131,6 +131,10 @@ namespace Lab4
                     pref);
                 dEng.writeMe();
                 iDel.Delete();
+                delModel mDel = dEng;
+                setModel mSet = dEng;
+                mDel.deleteModel();
+                mSet.setModel();
 
                 Console.WriteLine("Остальное введем автоматически");
 
@@ -139,30 +143,51 @@ namespace Lab4
                 bEng.initializeMe(8, 14, 3.1, 10.6, "A-95", 600, "Двигатель отличается большей мощностью за счет эффективного использования ресурсов.");
                 bEng.writeMe();
                 iDel.Delete();
+                mDel = bEng;
+                mSet = bEng;
+                mDel.deleteModel();
+                mSet.setModel();
 
                 ReactiveEngine rEng = new ReactiveEngine("Реактивный двигатель ROP258-24");
                 iDel = rEng;
                 rEng.initializeMe(-1, 1400, 125, 4860, "Gazoline", -1, "Двигатель отличается своей большой мощностью и расходом топлива, \nпреимущественно используется в ракетостроении.");
                 rEng.writeMe();
                 iDel.Delete();
+                mDel = rEng;
+                mSet = rEng;
+                mDel.deleteModel();
+                mSet.setModel();
             }
             else
             {
                 Console.WriteLine("Данные вводятся автоматически.");
                 DiezelEngine dEng = new DiezelEngine("Дизельный двигатель Mx40i", 4, 12, 1.2, 6.6, "ДТ", 500);
                 iDelete iDel = dEng;
+                delModel mDel = dEng;
+                setModel mSet = dEng;
                 dEng.writeMe();
                 iDel.Delete();
+                mDel.deleteModel();
+                mSet.setModel();
+
 
                 BensinEngine bEng = new BensinEngine("Бензиновый двигатель D2000", 8, 14, 3.1, 10.6, "A-95", 600);
                 iDel = bEng;
                 bEng.writeMe();
                 iDel.Delete();
+                mDel = bEng;
+                mSet = bEng;
+                mDel.deleteModel();
+                mSet.setModel();
 
                 ReactiveEngine rEng = new ReactiveEngine("Реактивный двигатель ROP258-24", -1, 1400, 125, 4860, "Gazoline", -1);
                 iDel = rEng;
                 rEng.writeMe();
                 iDel.Delete();
+                mDel = bEng;
+                mSet = bEng;
+                mDel.deleteModel();
+                mSet.setModel();
             }
             Console.ReadKey();
         }
@@ -271,7 +296,7 @@ namespace Lab4
             Console.WriteLine();
         }
     }
-    public class DiezelEngine : Engine, iDelete
+    public class DiezelEngine : Engine, iDelete, delModel, setModel
     {
         public DiezelEngine(string model) : base(model)
         {
@@ -284,7 +309,7 @@ namespace Lab4
         }
         public void Delete()
         {
-
+            this.pref = "";
         }
 
         public override void initializeMe(int numofCylinders, int powerful, double volume, 
@@ -298,9 +323,17 @@ namespace Lab4
             setTorque(torque);
             setPref(pref);
         }
+        public void deleteModel()
+        {
+            this.setModel("");
+        }
+        public void setModel()
+        {
+            this.setModel("Двигатель RENG 2000i");
+        }
 
     }
-    public class BensinEngine : Engine, iDelete
+    public class BensinEngine : Engine, iDelete, delModel, setModel
     {
         public BensinEngine(string model) : base(model)
         {
@@ -313,17 +346,23 @@ namespace Lab4
         }
         public void Delete()
         {
-
+            this.pref = "";
         }
-
+        public void deleteModel()
+        {
+            this.setModel("");
+        }
         public override void initializeMe(int numofCylinders, int powerful, double volume,
             double fuelConsumption, string typeOfFuel, int torque, string pref)
         {
-            
+        }
+        public void setModel()
+        {
+            this.setModel("Двигатель RENG 2000i");
         }
 
     }
-    public class ReactiveEngine : Engine, iDelete
+    public class ReactiveEngine : Engine, iDelete, delModel, setModel
     {
         public ReactiveEngine(string model) : base(model)
         {
@@ -336,7 +375,12 @@ namespace Lab4
         }
         public void Delete()
         {
+            this.pref = "";
+        }
 
+        public void deleteModel()
+        {
+            this.setModel("");
         }
 
         public override void initializeMe(int numofCylinders, int powerful, double volume,
@@ -345,9 +389,21 @@ namespace Lab4
             
         }
 
+        public void setModel()
+        {
+            this.setModel("Двигатель RENG 2000i");
+        }
+    }
+    public interface delModel
+    {
+        void deleteModel();
     }
     public interface iDelete
     {
         void Delete();
+    }
+    public interface setModel
+    {
+        void setModel();
     }
 }
