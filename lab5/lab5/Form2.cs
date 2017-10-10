@@ -43,7 +43,7 @@ namespace lab5
             Faculty fac = new Faculty(comboBox1.SelectedItem.ToString(), 
                 Int32.Parse(comboBox2.SelectedItem.ToString()), tGroups);
             facs.Add(fac);
-            //Hide();
+            Hide();
             writeToFile();
         }
 
@@ -51,15 +51,43 @@ namespace lab5
         {
             XmlDocument xDoc = new XmlDocument();
             xDoc.Load("xmltext.xml");
+            //объявляем необходимые переменные
             XmlElement xRoot = xDoc.DocumentElement;
-            XmlElement facsElem = xDoc.CreateElement("Faculties");
-            XmlElement facElem = xDoc.CreateElement("Faculty");
-
-            XmlAttribute nameAttr = xDoc.CreateAttribute("name");
+            XmlElement studentElem = xDoc.CreateElement("student");
             XmlElement courseElem = xDoc.CreateElement("course");
-            XmlAttribute courseAttr = xDoc.CreateAttribute("name");
+            XmlElement facElem = xDoc.CreateElement("faculty");
+            XmlElement groupElem = xDoc.CreateElement("group");
+            XmlElement fNameElem = xDoc.CreateElement("firstName");
+            XmlElement sNameElem = xDoc.CreateElement("surName");
+            XmlElement marks = xDoc.CreateElement("marks");
+            XmlElement predmet = xDoc.CreateElement("predmet");
+            XmlElement code = xDoc.CreateElement("code");
+            XmlElement mark = xDoc.CreateElement("mark");
+            XmlElement examDate = xDoc.CreateElement("examDate");
+            //строим структуру хмл документа
+            xRoot.AppendChild(studentElem);
+            studentElem.AppendChild(facElem);
+            studentElem.AppendChild(courseElem);
+            studentElem.AppendChild(groupElem);
+            studentElem.AppendChild(sNameElem);
+            studentElem.AppendChild(fNameElem);
+            studentElem.AppendChild(marks);
+            marks.AppendChild(predmet);
+            predmet.AppendChild(code);
+            predmet.AppendChild(mark);
+            predmet.AppendChild(examDate);
+            //заполняем примером
+            courseElem.AppendChild(xDoc.CreateTextNode("1"));
+            facElem.AppendChild(xDoc.CreateTextNode("FICT"));
+            groupElem.AppendChild(xDoc.CreateTextNode("IK-51"));
+            fNameElem.AppendChild(xDoc.CreateTextNode("Максим"));
+            sNameElem.AppendChild(xDoc.CreateTextNode("Козоріз"));
+            code.AppendChild(xDoc.CreateTextNode("1"));
+            mark.AppendChild(xDoc.CreateTextNode("4"));
+            examDate.AppendChild(xDoc.CreateTextNode("21/01/2017"));
+            xDoc.Save("xmltext.xml");
 
-            foreach (Faculty f in facs)
+            /*foreach (Faculty f in facs)
             {
                 XmlText nameText = xDoc.CreateTextNode(f.getName());
                 XmlText courseText = xDoc.CreateTextNode(f.getCourse() + "");
@@ -89,21 +117,8 @@ namespace lab5
                         }
                         
                     }
-                }
-                nameAttr.AppendChild(nameText);
-                facsElem.AppendChild(facElem);
-                facElem.Attributes.Append(nameAttr);
-                courseElem.Attributes.Append(courseAttr);
-                facElem.AppendChild(courseElem);
-                courseAttr.AppendChild(courseText);
+                }*/
 
-
-                xRoot.AppendChild(facsElem);
-            }
-            
-
-            
-            xDoc.Save("xmltext.xml");
             /*foreach (XmlNode node in doc.DocumentElement)
             {
                 string name = node.Attributes[0].Value;
