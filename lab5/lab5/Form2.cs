@@ -43,6 +43,7 @@ namespace lab5
                 Int32.Parse(comboBox2.SelectedItem.ToString()), tGroups);
             facs.Add(fac);
             Hide();
+
         }
     }
 }
