@@ -21,6 +21,12 @@ namespace lab5
             comboBox2.Items.Add('2');
             comboBox2.Items.Add('3');
             comboBox2.Items.Add('4');
+
+            comboBox5.Items.Add('1');
+            comboBox5.Items.Add('2');
+            comboBox5.Items.Add('3');
+            comboBox5.Items.Add('4');
+            comboBox5.Items.Add('5');
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -126,6 +132,17 @@ namespace lab5
                 bool programmer = bool.Parse(node["Programmer"].InnerText);
                 listBox1.Items.Add(new Employee(name, age, programmer));
             }*/
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            comboBox4.Items.Add(textBox6.Text + " " + textBox7.Text);
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            listbox1.Items.Add(comboBox4.SelectedItem + " " + comboBox5.SelectedItem + " " + dateTimePicker1.Text);
         }
     }
 }
