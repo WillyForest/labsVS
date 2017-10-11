@@ -28,6 +28,71 @@ namespace lab5
             
             if (xRoot.HasChildNodes)
             {
+                //находим все факультеты, которые есть в xml файле
+                foreach (XmlElement s in xDoc.GetElementsByTagName("student"))
+                {
+                    bool founded = false;
+                    foreach (Faculty fac in facs)
+                    {
+                        if (fac.getName() == s.FirstChild.InnerText)
+                        {
+                            founded = true;
+                        }
+                    }
+                    if (!founded)
+                    {
+                        Faculty fac = new Faculty(s.FirstChild.InnerText);
+                        facs.Add(fac);
+                    }
+                }
+            }
+            if (xRoot.HasChildNodes)
+            {
+                foreach (XmlElement s in xDoc.GetElementsByTagName("student"))
+                {
+                    foreach (XmlElement f in s.GetElementsByTagName("course"))
+                    {
+                        if (((f.InnerText + "") == ("1")))
+                        {
+                            List<string> groups = new List<string>();
+                            foreach (XmlElement g in s.GetElementsByTagName("group"))
+                            {
+                                groups.Add(g.InnerText);
+                            }
+                            facs.Where(child => child.getName() == s.FirstChild.InnerText).First().setGroups(groups, 1);
+                        }
+                        if (((f.InnerText + "") == ("2")))
+                        {
+                            List<string> groups = new List<string>();
+                            foreach (XmlElement g in s.GetElementsByTagName("group"))
+                            {
+                                groups.Add(g.InnerText);
+                            }
+                            facs.Where(child => child.getName() == s.FirstChild.InnerText).First().setGroups(groups, 2);
+                        }
+                        if (((f.InnerText + "") == ("3")))
+                        {
+                            List<string> groups = new List<string>();
+                            foreach (XmlElement g in s.GetElementsByTagName("group"))
+                            {
+                                groups.Add(g.InnerText);
+                            }
+                            facs.Where(child => child.getName() == s.FirstChild.InnerText).First().setGroups(groups, 3);
+                        }
+                        if (((f.InnerText + "") == ("4")))
+                        {
+                            List<string> groups = new List<string>();
+                            foreach (XmlElement g in s.GetElementsByTagName("group"))
+                            {
+                                groups.Add(g.InnerText);
+                            }
+                            facs.Where(child => child.getName() == s.FirstChild.InnerText).First().setGroups(groups, 4);
+                        }
+                    }
+                }
+            }
+            if (xRoot.HasChildNodes)
+            {
                 int i = 0;
                 foreach (XmlElement s in xDoc.GetElementsByTagName("student"))
                 {
@@ -55,31 +120,42 @@ namespace lab5
     public class Faculty
     {
         string name;
-        List<string> groups = new List<string>();
-        int course;
-
-        public Faculty(string name, int course, List<string> groups)
+        List<string>[] groups = new List<string>[5];
+        //int course;
+        public void setGroups(List<string> grps, int course)
+        {
+            foreach (string group in grps)
+            {
+                
+                groups[course].Add(group);
+            }
+        }
+        public Faculty(string name)
         {
             this.name = name;
-            this.course = course;
-            foreach (string group in groups)
+            for (int i = 0; i < groups.Length; i++)
             {
-                this.groups.Add(group);
+                groups[i] = new List<string>();
             }
+            //this.course = course;
+            //foreach (string group in groups)
+            //{
+            //    this.groups.Add(group);
+            //}
         }
 
         public string getName()
         {
             return name;
         }
-        public int getCourse()
-        {
-            return course;
-        }
-        public List<string> getGroups()
-        {
-            return groups;
-        }
+        //public int getCourse()
+        //{
+            //return course;
+        //}
+        //public List<string> getGroups()
+        //{
+            //return groups;
+        //}
         
         
     }

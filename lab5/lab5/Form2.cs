@@ -66,9 +66,9 @@ namespace lab5
             {
                 tGroups.Add(cb);
             }
-            Faculty fac = new Faculty(comboBox1.SelectedItem.ToString(), 
-                Int32.Parse(comboBox2.SelectedItem.ToString()), tGroups);
-            facs.Add(fac);
+            //Faculty fac = new Faculty(comboBox1.SelectedItem.ToString(), 
+            //    Int32.Parse(comboBox2.SelectedItem.ToString()), tGroups);
+            //facs.Add(fac);
             Hide();
             writeToFile();
         }
