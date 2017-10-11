@@ -35,13 +35,18 @@ namespace lab5
             XmlElement xRoot = xDoc.DocumentElement;
             if (xRoot.HasChildNodes)
             {
-                foreach (XmlElement s in xRoot.ChildNodes)
+                foreach(XmlElement s in xDoc.GetElementsByTagName("faculty"))
+                {
+                    if (!comboBox1.Items.Contains(s.InnerText))
+                        comboBox1.Items.Add(s.InnerText);
+                }
+                /*foreach (XmlElement s in xRoot.ChildNodes)
                 {
                     if ((s.FirstChild.Name + "") == "faculty")
                     {
                         comboBox1.Items.Add(s.FirstChild.InnerText);
                     }
-                }
+                }*/
             }
         }
         private void button1_Click(object sender, EventArgs e)
@@ -97,6 +102,7 @@ namespace lab5
             {
                 XmlElement predmet = xDoc.CreateElement("predmet");
                 XmlElement code = xDoc.CreateElement("code");
+                XmlElement name = xDoc.CreateElement("name");
                 XmlElement mark = xDoc.CreateElement("mark");
                 XmlElement examDate = xDoc.CreateElement("examDate");
                 marks.AppendChild(predmet);
@@ -105,7 +111,9 @@ namespace lab5
                 predmet.AppendChild(code);
                 predmet.AppendChild(mark);
                 predmet.AppendChild(examDate);
+                predmet.AppendChild(name);
                 code.AppendChild(xDoc.CreateTextNode(it.Split(' ')[0]));
+                name.AppendChild(xDoc.CreateTextNode(it.Split(' ')[1]));
                 mark.AppendChild(xDoc.CreateTextNode(it.Split(' ')[2]));
                 examDate.AppendChild(xDoc.CreateTextNode(it.Split(' ')[3] + " " + it.Split(' ')[4] + " " + it.Split(' ')[5]));
             }
@@ -182,6 +190,36 @@ namespace lab5
         private void button5_Click(object sender, EventArgs e)
         {
             listbox1.Items.Add(comboBox4.SelectedItem + " " + comboBox5.SelectedItem + " " + dateTimePicker1.Text);
+        }
+
+        private void comboBox2_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            XmlDocument xDoc = new XmlDocument();
+            xDoc.Load("xmltext.xml");
+            XmlElement xRoot = xDoc.DocumentElement;
+            comboBox3.Items.Clear();
+            comboBox4.Items.Clear();
+            if (xRoot.HasChildNodes)
+            {
+                foreach (XmlElement s in xDoc.GetElementsByTagName("student"))
+                {
+                    foreach (XmlElement f in s.GetElementsByTagName("course"))
+                    {
+                        if (((f.InnerText + "") == (comboBox2.SelectedItem + "")) &&
+                            (s.FirstChild.InnerText + "") == (comboBox1.SelectedItem + ""))
+                        {
+                            foreach (XmlElement g in s.GetElementsByTagName("group"))
+                            {
+                                comboBox3.Items.Add(g.InnerText);
+                            }
+                            foreach (XmlElement pr in s.GetElementsByTagName("predmet"))
+                            {
+                                comboBox4.Items.Add(pr.FirstChild.InnerText + " " + pr.LastChild.InnerText);
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
