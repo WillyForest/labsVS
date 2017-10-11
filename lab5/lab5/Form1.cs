@@ -7,15 +7,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace lab5
 {
     public partial class Form1 : Form
     {
-        
+        List<Faculty> facs = new List<Faculty>();
         public Form1()
         {
             InitializeComponent();
+            readFromFile();
+        }
+
+        public void readFromFile()
+        {
+            XmlDocument xDoc = new XmlDocument();
+            xDoc.Load("xmltext.xml");
+            XmlElement xRoot = xDoc.DocumentElement;
+            
+            if (xRoot.HasChildNodes)
+            {
+                int i = 0;
+                foreach (XmlElement s in xDoc.GetElementsByTagName("student"))
+                {
+                    if (!((s.FirstChild.InnerText + "") == facs[i].getName()))
+                    {
+                        //продумать архитектуру
+//                        Faculty fac = new Faculty(s.FirstChild.InnerText, 1, s.ChildNodes);
+                    }
+                    i++;
+                }
+            }
         }
 
         private void button4_Click(object sender, EventArgs e)
