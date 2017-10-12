@@ -13,7 +13,7 @@ namespace lab5
 {
     public partial class Form2 : Form
     {
-        List<Faculty> facs = new List<Faculty>();
+        //List<Faculty> facs = new List<Faculty>();
         public Form2()
         {
             InitializeComponent();
@@ -28,17 +28,20 @@ namespace lab5
             comboBox5.Items.Add('4');
             comboBox5.Items.Add('5');
 
-
+            foreach (Faculty fac in Form1.facs)
+            {
+                comboBox1.Items.Add(fac.getName());
+            }
             XmlDocument xDoc = new XmlDocument();
             xDoc.Load("xmltext.xml");
             //объявляем необходимые переменные
             XmlElement xRoot = xDoc.DocumentElement;
-            if (xRoot.HasChildNodes)
+            /*if (xRoot.HasChildNodes)
             {
                 foreach(XmlElement s in xDoc.GetElementsByTagName("faculty"))
                 {
-                    if (!comboBox1.Items.Contains(s.InnerText))
-                        comboBox1.Items.Add(s.InnerText);
+                    //if (!comboBox1.Items.Contains(s.InnerText))
+                        //comboBox1.Items.Add(s.InnerText);
                 }
                 /*foreach (XmlElement s in xRoot.ChildNodes)
                 {
@@ -46,8 +49,8 @@ namespace lab5
                     {
                         comboBox1.Items.Add(s.FirstChild.InnerText);
                     }
-                }*/
-            }
+                }
+            }*/
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -83,6 +86,7 @@ namespace lab5
             XmlElement courseElem = xDoc.CreateElement("course");
             XmlElement facElem = xDoc.CreateElement("faculty");
             XmlElement groupElem = xDoc.CreateElement("group");
+            XmlElement studentID = xDoc.CreateElement("ID");
             XmlElement fNameElem = xDoc.CreateElement("firstName");
             XmlElement sNameElem = xDoc.CreateElement("surName");
             XmlElement marks = xDoc.CreateElement("marks");
@@ -95,6 +99,7 @@ namespace lab5
             studentElem.AppendChild(facElem);
             studentElem.AppendChild(courseElem);
             studentElem.AppendChild(groupElem);
+            studentElem.AppendChild(studentID);
             studentElem.AppendChild(sNameElem);
             studentElem.AppendChild(fNameElem);
             studentElem.AppendChild(marks);
@@ -132,6 +137,7 @@ namespace lab5
             courseElem.AppendChild(xDoc.CreateTextNode(comboBox2.SelectedItem + ""));
             facElem.AppendChild(xDoc.CreateTextNode(comboBox1.SelectedItem + ""));
             groupElem.AppendChild(xDoc.CreateTextNode(comboBox3.SelectedItem + ""));
+            studentID.AppendChild(xDoc.CreateTextNode(textBox5.Text));
             fNameElem.AppendChild(xDoc.CreateTextNode(textBox4.Text));
             sNameElem.AppendChild(xDoc.CreateTextNode(textBox3.Text));
             //code.AppendChild(xDoc.CreateTextNode((listbox1.Items).Split(' ')[0]));
@@ -199,6 +205,10 @@ namespace lab5
             XmlElement xRoot = xDoc.DocumentElement;
             comboBox3.Items.Clear();
             comboBox4.Items.Clear();
+            foreach (string g in Form1.facs.Where(el => el.getName() == (comboBox1.SelectedItem + "")).First().getGroups(Int32.Parse(comboBox2.SelectedItem + "")))
+            {
+                comboBox3.Items.Add(g);
+            }
             if (xRoot.HasChildNodes)
             {
                 foreach (XmlElement s in xDoc.GetElementsByTagName("student"))
@@ -210,7 +220,7 @@ namespace lab5
                         {
                             foreach (XmlElement g in s.GetElementsByTagName("group"))
                             {
-                                comboBox3.Items.Add(g.InnerText);
+                                //comboBox3.Items.Add(g.InnerText);
                             }
                             foreach (XmlElement pr in s.GetElementsByTagName("predmet"))
                             {

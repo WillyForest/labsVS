@@ -13,7 +13,9 @@ namespace lab5
 {
     public partial class Form1 : Form
     {
-        List<Faculty> facs = new List<Faculty>();
+        public static List<Faculty> facs = new List<Faculty>();
+        List<Student> students = new List<Student>();
+        XPredmetList predmets = new XPredmetList();
         public Form1()
         {
             InitializeComponent();
@@ -50,9 +52,24 @@ namespace lab5
             {
                 foreach (XmlElement s in xDoc.GetElementsByTagName("student"))
                 {
+                    Student student = new Student(Int32.Parse(s.ChildNodes[3].InnerText), 
+                        s.ChildNodes[4].InnerText, s.ChildNodes[5].InnerText);
+                    List<XMark> exams = new List<XMark>();
+                    foreach(XmlElement ex in s.GetElementsByTagName("predmet"))
+                    {
+                        XMark exam = new XMark();
+                        exam.setPredmetCode(Int32.Parse(ex.FirstChild.InnerText));
+                        exam.setExamDate(DateTime.Parse(ex.ChildNodes[2].InnerText));
+                        exam.setMark(Int32.Parse(ex.ChildNodes[1].InnerText));
+                        predmets.setItem(ex.ChildNodes[0].InnerText, ex.ChildNodes[3].InnerText);
+                        exams.Add(exam);
+                    }
+                    student.setExams(exams);
+                    students.Add(student);
+
                     foreach (XmlElement f in s.GetElementsByTagName("course"))
                     {
-                        if (((f.InnerText + "") == ("1")))
+                        if ((f.InnerText + "") == ("1"))
                         {
                             List<string> groups = new List<string>();
                             foreach (XmlElement g in s.GetElementsByTagName("group"))
@@ -91,19 +108,6 @@ namespace lab5
                     }
                 }
             }
-            if (xRoot.HasChildNodes)
-            {
-                int i = 0;
-                foreach (XmlElement s in xDoc.GetElementsByTagName("student"))
-                {
-                    if (!((s.FirstChild.InnerText + "") == facs[i].getName()))
-                    {
-                        //продумать архитектуру
-//                        Faculty fac = new Faculty(s.FirstChild.InnerText, 1, s.ChildNodes);
-                    }
-                    i++;
-                }
-            }
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -121,14 +125,20 @@ namespace lab5
     {
         string name;
         List<string>[] groups = new List<string>[5];
-        //int course;
         public void setGroups(List<string> grps, int course)
         {
             foreach (string group in grps)
             {
-                
-                groups[course].Add(group);
+                if (!(groups[course].Contains(group)))
+                {
+                    groups[course].Add(group);
+                }
+                    
             }
+        }
+        public List<string> getGroups(int course)
+        {
+            return groups[course];
         }
         public Faculty(string name)
         {
@@ -137,42 +147,34 @@ namespace lab5
             {
                 groups[i] = new List<string>();
             }
-            //this.course = course;
-            //foreach (string group in groups)
-            //{
-            //    this.groups.Add(group);
-            //}
         }
 
         public string getName()
         {
             return name;
-        }
-        //public int getCourse()
-        //{
-            //return course;
-        //}
-        //public List<string> getGroups()
-        //{
-            //return groups;
-        //}
-        
-        
+        }    
     }
     public class XPredmetList
     {
-        public static string[] GetNames()
+        public string GetName(string key)
         {
-            return items.ToArray();
+            return items[key];
         }
 
-        static List<string> items;
-
+        //static List<string> items;
+        Dictionary<string, string> items = new Dictionary<string, string>();
+        public void setItem(string key, string value)
+        {
+            if (!(items.ContainsKey(key) && items[key] == value))
+            {
+                items.Add(key, value);
+            }
+        }
         // конструктор класса, кот. устанавливает список предметов
-        static XPredmetList()
-        {
-            items.AddRange(new string[] { "p1", "p2", "p3" });
-        }
+        //static XPredmetList()
+        //{
+        //    items.Add(.AddRange(new string[] { "Math", "English", "Programming" });
+        //}
     }
     public class XMark
     {
@@ -183,9 +185,21 @@ namespace lab5
         //  дата сдачи
         DateTime examDate;
         // метод получения названия предмета
-        public string GetPredmetName()
+        //public string GetPredmetName()
+        //{
+        //    return XPredmetList.GetNames()[this.predmetCode];
+        //}
+        public void setPredmetCode(int pCode)
         {
-            return XPredmetList.GetNames()[this.predmetCode];
+            this.predmetCode = pCode;
+        }
+        public void setMark(int pMark)
+        {
+            this.mark = pMark;
+        }
+        public void setExamDate(DateTime eDate)
+        {
+            this.examDate = eDate;
         }
     }
     public class Student
@@ -197,6 +211,19 @@ namespace lab5
         string surName;
         // Оценки данного студента
         List<XMark> exams = new List<XMark>();
+        public void setExams(List<XMark> exms)
+        {
+            foreach (XMark exam in exams)
+            {
+                exams.Add(exam);
+            }
+        }
+        public Student(int stID, string sName, string fName)
+        {
+            this.studentID = stID;
+            this.firstName = fName;
+            this.surName = sName;
+        }
     }
 
 
