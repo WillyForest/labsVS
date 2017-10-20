@@ -15,7 +15,7 @@ namespace lab5
     {
         public static List<Faculty> facs = new List<Faculty>();
         List<Student> students = new List<Student>();
-        XPredmetList predmets = new XPredmetList();
+        public static XPredmetList predmets = new XPredmetList();
         public Form1()
         {
             InitializeComponent();
@@ -161,8 +161,16 @@ namespace lab5
             return items[key];
         }
 
-        //static List<string> items;
+        static List<string> itms;
         Dictionary<string, string> items = new Dictionary<string, string>();
+        public List<string> getItems()
+        {
+            /*foreach (Dictionary<string,string> it in items)
+            {
+                //items.Add(it.Values);
+            }*/
+            return itms;
+        }
         public void setItem(string key, string value)
         {
             if (!(items.ContainsKey(key) && items[key] == value))

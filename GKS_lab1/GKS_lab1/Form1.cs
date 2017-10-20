@@ -19,6 +19,8 @@ namespace GKS_lab1
         List<string> notUsedVars = new List<string>();
         List<string> allVars = new List<string>();
         List<List<string>> groups = new List<List<string>>();
+        List<List<string>> newGroups = new List<List<string>>();
+        List<List<string>> sortedNewGroups = new List<List<string>>();
         bool[,] matrix;
         int[,] compared;
         public Form1()
@@ -150,9 +152,85 @@ namespace GKS_lab1
             label3.Location = new Point(300, 20);
             label1.Text = findMaxElem() + "";
             setGroups();
+
+            btns.Add(generateButton("Далeе", 200, 110));
+            btns[3].Click += new EventHandler(btn3_Click);
+        }
+        private void btn3_Click(object sender, EventArgs e)
+        {
+            setNewGroups();
+            sortGroupsInNewGroups();
+            rangeSortedNewGroups();
         }
 
-        
+        private void rangeSortedNewGroups()
+        {
+            //и так на каждом шагу
+            foreach (string sngel in sortedNewGroups[1])
+            {
+                if (sortedNewGroups[0].Contains(sngel))
+                {
+                    continue;
+                    //флажок, если элемент есть, то 1
+                    //потом если осталась 1, добавляем в группу эту группу, иначе - оставляем
+                } else
+                {
+                    break;
+                }
+            }
+        }
+
+        private void sortGroupsInNewGroups()
+        {
+            do
+            {
+                int maxElem = 0;
+                int posOfMaxEl = 0;
+                int i = 0;
+                foreach (List<string> ng in newGroups)
+                {
+                    if (ng.Count > maxElem)
+                    {
+                        maxElem = ng.Count;
+                        posOfMaxEl = i;
+                    }
+                    i++;
+                }
+                //if (newGroups.Where(ngroup => ngroup.Count == maxElem).) 
+                    //если несколько одинаковых по величине групп
+                sortedNewGroups.Add(newGroups[posOfMaxEl]);
+                newGroups.RemoveAt(posOfMaxEl);
+            } while (newGroups.Count > 0);
+        }
+
+        private void setNewGroups()
+        {
+            label2.Location = new Point(20, 130 + 30 * strs.Count);
+            label2.Text = "Новые группы: \n";
+            foreach(List<string> group in groups)
+            {
+                List<string> newGroup = new List<string>();
+                foreach (string elemOfGroup in group)
+                {
+                    string[] tempStr = new String[strs[Int32.Parse(elemOfGroup)].Text.Length];
+                    tempStr = strs[Int32.Parse(elemOfGroup)].Text.Split(' ');
+                    for (int i = 0; i < tempStr.Length; i++)
+                    {
+                        if (!newGroup.Contains(tempStr[i]))
+                        {
+                            newGroup.Add(tempStr[i]);
+                        }
+
+                    }
+                }
+                foreach (string g in newGroup)
+                {
+                    label2.Text += g + " ";
+                }
+                label2.Text += "Всего элементов : " + newGroup.Count + "\n";
+                newGroups.Add(newGroup);
+            }
+        }
 
         private void setGroups()
         {

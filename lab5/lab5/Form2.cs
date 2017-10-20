@@ -209,6 +209,10 @@ namespace lab5
             {
                 comboBox3.Items.Add(g);
             }
+            foreach(XPredmetList pr in Form1.predmets.getItems())
+            {
+
+            }
             if (xRoot.HasChildNodes)
             {
                 foreach (XmlElement s in xDoc.GetElementsByTagName("student"))
@@ -224,7 +228,7 @@ namespace lab5
                             }
                             foreach (XmlElement pr in s.GetElementsByTagName("predmet"))
                             {
-                                comboBox4.Items.Add(pr.FirstChild.InnerText + " " + pr.LastChild.InnerText);
+                                //comboBox4.Items.Add(pr.FirstChild.InnerText + " " + pr.LastChild.InnerText);
                             }
                         }
                     }
