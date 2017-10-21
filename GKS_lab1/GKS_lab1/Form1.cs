@@ -21,6 +21,7 @@ namespace GKS_lab1
         List<List<string>> groups = new List<List<string>>();
         List<List<string>> newGroups = new List<List<string>>();
         List<List<string>> sortedNewGroups = new List<List<string>>();
+        List<List<string>> sortedGroups = new List<List<string>>();
         bool[,] matrix;
         int[,] compared;
         public Form1()
@@ -199,8 +200,29 @@ namespace GKS_lab1
                 //if (newGroups.Where(ngroup => ngroup.Count == maxElem).) 
                     //если несколько одинаковых по величине групп
                 sortedNewGroups.Add(newGroups[posOfMaxEl]);
+                sortedGroups.Add(groups[posOfMaxEl]);
                 newGroups.RemoveAt(posOfMaxEl);
             } while (newGroups.Count > 0);
+
+            label2.Text = "Новые отсортированные группы: \n";
+            foreach (List<string> sng in sortedNewGroups)
+            {
+                foreach (string s in sng)
+                {
+                    label2.Text += s + " ";
+                }
+                label2.Text += "Всего элементов : " + sng.Count + "\n";
+            }
+            foreach (List<string> group in sortedGroups)
+            {
+                foreach (string el in group)
+                {
+                    label2.Text += (Int32.Parse(el)+1) + " ";
+                }
+                label2.Text += "\n";
+            }
+            
+            
         }
 
         private void setNewGroups()
