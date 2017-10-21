@@ -166,6 +166,73 @@ namespace GKS_lab1
 
         private void rangeSortedNewGroups()
         {
+            int first = 0;
+            bool contain = true;
+            for (int i = 1; i < sortedGroups.Count; i++)//проходим по элементам массива групп (группа)
+            {
+                for (int j = 0; j < sortedGroups[i].Count; j++)//проходим по элементам группы (номера групп)
+                {
+                    contain = true;
+                    string[] tempStr = new String[strs[Int32.Parse(sortedGroups[i][j])].Text.Length]; 
+                    tempStr = strs[Int32.Parse(sortedGroups[i][j])].Text.Split(' '); //достаем элементы для каждой группы
+                    for (int k = 0; k < tempStr.Length; k++)//для каждого элемента конкретной группы
+                    {
+                        if (!sortedNewGroups[first].Contains(tempStr[k]) && tempStr[k] != "")
+                        {
+                            contain = false;
+                        }
+                    }
+                    if (contain && !sortedGroups[first].Contains(j + ""))
+                    {
+                        sortedGroups[first].Add(j + "");
+                        sortedGroups[i].Remove(j + "");
+                    }//РАБОТАЕТ, на каждом шаге добавляет элемент в первую группу, если нужно.
+                    ///TODO цикл, чтобы всё на автомате
+                    foreach (List<string> group in sortedGroups)
+                    {
+                        foreach (string el in group)
+                        {
+                            label2.Text += (Int32.Parse(el) + 1) + " ";
+                        }
+                        label2.Text += "\n";
+                    }
+                }
+            }
+            
+            
+            //int j = 0;
+            /*
+            foreach (List<string> gr in sortedGroups)
+            {
+                bool fullContaining = true;
+                int index = 0;
+                foreach (string elOfGroup in gr)
+                {
+                    foreach (TextBox tb in strs)
+                    {
+                        string[] tempStr = new String[strs[Int32.Parse(elOfGroup)].Text.Length];
+                        tempStr = strs[Int32.Parse(elOfGroup)].Text.Split(' ');
+                        for (int i = 0; i < tempStr.Length; i++)
+                        {
+                            if (!sortedNewGroups[j].Contains(tempStr[i]))
+                            {
+                                fullContaining = false;
+                                break;
+                            } else
+                            {
+                                index = sortedGroups.IndexOf(gr);
+                            }
+
+                        }
+                    }
+                } //если все элементы конкретной строчки группы содержатся в первой - 
+                 //добавляем ее индекс в 1
+                 if (fullContaining && !sortedGroups[j].Contains(index + ""))
+                {
+                    sortedGroups[j].Add(index + "");
+                }
+            }
+            
             //и так на каждом шагу
             foreach (string sngel in sortedNewGroups[1])
             {
@@ -179,6 +246,15 @@ namespace GKS_lab1
                     break;
                 }
             }
+            //хз
+            foreach (List<string> group in sortedGroups)
+            {
+                foreach (string el in group)
+                {
+                    label2.Text += (Int32.Parse(el) + 1) + " ";
+                }
+                label2.Text += "\n";
+            }*/
         }
 
         private void sortGroupsInNewGroups()
