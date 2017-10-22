@@ -22,6 +22,7 @@ namespace GKS_lab1
         List<List<string>> newGroups = new List<List<string>>();
         List<List<string>> sortedNewGroups = new List<List<string>>();
         List<List<string>> sortedGroups = new List<List<string>>();
+        List<List<string>> rangedGroups = new List<List<string>>();
         bool[,] matrix;
         int[,] compared;
         public Form1()
@@ -162,44 +163,146 @@ namespace GKS_lab1
             setNewGroups();
             sortGroupsInNewGroups();
             rangeSortedNewGroups();
+            rangeGroups();
         }
 
-        private void rangeSortedNewGroups()
+        private void rangeGroups()
         {
-            int first = 0;
-            bool contain = true;
-            for (int i = 1; i < sortedGroups.Count; i++)//проходим по элементам массива групп (группа)
-            {
-                for (int j = 0; j < sortedGroups[i].Count; j++)//проходим по элементам группы (номера групп)
+            List<string> elemsOfGroup1 = new List<string>();
+            List<string> elemsOfGroup2 = new List<string>();
+            for (int i = 0; i < sortedGroups.Count - 1; i++) //берем до предпоследней строчки, чтобы сравнить
+            {                                               //с последней
+                for (int k = i + 1; k < sortedGroups.Count; k++)
                 {
-                    contain = true;
-                    string[] tempStr = new String[strs[Int32.Parse(sortedGroups[i][j])].Text.Length]; 
-                    tempStr = strs[Int32.Parse(sortedGroups[i][j])].Text.Split(' '); //достаем элементы для каждой группы
-                    for (int k = 0; k < tempStr.Length; k++)//для каждого элемента конкретной группы
+                    int lim = sortedGroups[k].Count;
+                    for (int j = 0; j < lim; j++)
                     {
-                        if (!sortedNewGroups[first].Contains(tempStr[k]) && tempStr[k] != "")
+                        if (sortedGroups[k].Count > 0)
                         {
-                            contain = false;
+                            elemsOfGroup1 = getElemsFromGroups(sortedGroups[i]);//берем все элементы всех строчек 1 группы
+                            elemsOfGroup2 = getElemsFromGroup(sortedGroups[k][j]); //берем все элементы 1 строчки 2 группы
+                            if (doesContain(elemsOfGroup1, elemsOfGroup2))
+                            {
+                                sortedGroups[i].Add(sortedGroups[k][j]);
+                                sortedGroups[k].RemoveAt(j);
+                                j--;
+                            }
                         }
-                    }
-                    if (contain && !sortedGroups[first].Contains(j + ""))
-                    {
-                        sortedGroups[first].Add(j + "");
-                        sortedGroups[i].Remove(j + "");
-                    }//РАБОТАЕТ, на каждом шаге добавляет элемент в первую группу, если нужно.
-                    ///TODO цикл, чтобы всё на автомате
-                    foreach (List<string> group in sortedGroups)
-                    {
-                        foreach (string el in group)
-                        {
-                            label2.Text += (Int32.Parse(el) + 1) + " ";
-                        }
-                        label2.Text += "\n";
                     }
                 }
             }
-            
-            
+            label2.Text += "После ренжирования";
+            foreach (List<string> group in sortedGroups)
+            {
+                foreach (string el in group)
+                {
+                    label2.Text += (Int32.Parse(el) + 1) + " ";
+                }
+                label2.Text += "\n";
+            }
+        }
+
+        private bool doesContain(List<string> elemsOfGroup1, List<string> elemsOfGroup2)
+        {
+            bool contains = true;
+            foreach(string elem in elemsOfGroup2)
+            {
+                if (!elemsOfGroup1.Contains(elem))
+                {
+                    contains = false;
+                }
+            }
+            return contains;
+        }
+
+        private List<string> getElemsFromGroup(string group)
+        {
+            List<string> answer = new List<string>();
+            string[] tempStr = new String[strs[Int32.Parse(group)].Text.Length];
+            tempStr = strs[Int32.Parse(group)].Text.Split(' ');
+            foreach (string el in tempStr)
+            {
+                answer.Add(el);
+            }
+            return answer;
+        }
+
+        private List<string> getElemsFromGroups(List<string> list)
+        {
+            List<string> answer = new List<string>();
+            foreach (string group in list)
+            {
+                string[] tempStr = new String[strs[Int32.Parse(group)].Text.Length];
+                tempStr = strs[Int32.Parse(group)].Text.Split(' ');
+                foreach(string el in tempStr)
+                {
+                    answer.Add(el);
+                }
+            }
+            return answer;
+        }
+
+        private void rangeSortedNewGroups()
+        {/*
+            int first = 0;
+            while (first < sortedGroups.Count)// - 1)
+            {
+                
+                bool contain = true;
+                for (int i = first + 1; i < sortedGroups.Count; i++)//проходим по элементам массива групп (группа)
+                {
+                    for (int j = 0; j < sortedGroups[i].Count; j++)//проходим по элементам группы (номера групп)
+                    {
+                        contain = true;
+                        string[] tempStr = new String[strs[Int32.Parse(sortedGroups[i][j])].Text.Length];
+                        tempStr = strs[Int32.Parse(sortedGroups[i][j])].Text.Split(' '); //достаем элементы для каждой группы
+                        for (int k = 0; k < tempStr.Length; k++)//для каждого элемента конкретной группы
+                        {
+                            if (!sortedNewGroups[first].Contains(tempStr[k]) && tempStr[k] != "")
+                            {
+                                contain = false;
+                            }
+                        }
+                        if (contain && !sortedGroups[first].Contains(sortedGroups[i][j]))
+                        {
+                            sortedGroups[first].Add(sortedGroups[i][j]);
+                            sortedGroups[i].Remove(sortedGroups[i][j]);
+                        }//РАБОТАЕТ, на каждом шаге добавляет элемент в первую группу, если нужно.
+                         ///TODO цикл, чтобы всё на автомате
+                        label2.Text += "\nПосле ренж\n";
+                        foreach (List<string> group in sortedGroups)
+                        {
+                            foreach (string el in group)
+                            {
+                                label2.Text += (Int32.Parse(el) + 1) + " ";
+                            }
+                            label2.Text += "\n";
+                        }
+                    }
+                }
+
+                /*List<string> rangedGroup = new List<string>();
+                rangedGroup = sortedGroups[first]; //сохраняем первую группу после ренжирования
+                sortedGroups.RemoveAt(first); //удаляем ее из временного массива
+                rangedGroups.Add(rangedGroup);
+                if (sortedGroups.Count < 2)
+                {
+                    rangedGroup = new List<string>();
+                    rangedGroup = sortedGroups[first]; //Если не осталось элементов для сравнения
+                    sortedGroups.RemoveAt(first); //перепишем последние в новую группу
+                    rangedGroups.Add(rangedGroup);
+                }
+                first++;
+            }*/
+            /*label2.Text += "\nПосле ренжирования:\n";
+            foreach (List<string> group in rangedGroups)
+            {
+                foreach (string el in group)
+                {
+                    label2.Text += (Int32.Parse(el) + 1) + " ";
+                }
+                label2.Text += "\n";
+            }*/
             //int j = 0;
             /*
             foreach (List<string> gr in sortedGroups)
