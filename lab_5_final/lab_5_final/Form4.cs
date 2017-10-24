@@ -52,11 +52,34 @@ namespace lab_5_final
         private void button1_Click(object sender, EventArgs e)
         {
             List<XMark> exms = new List<XMark>();
-            XMark mark = new XMark(0, comboBox5.SelectedItem, );
             if (comboBox5.SelectedItem + "" != "")
+            {
+                XMark mark = new XMark(0, Int32.Parse(comboBox5.SelectedItem + ""),
+                    DateTime.Parse(dateTimePicker1.Text));
                 exms.Add(mark);
-            Student stud = new Student(textBox2.Text, textBox1.Text, exms);
-            
+            }
+            if (comboBox6.SelectedItem + "" != "")
+            {
+                XMark mark = new XMark(1, Int32.Parse(comboBox6.SelectedItem + ""),
+                    DateTime.Parse(dateTimePicker2.Text));
+                exms.Add(mark);
+            }
+            if (comboBox8.SelectedItem + "" != "")
+            {
+                XMark mark = new XMark(2, Int32.Parse(comboBox8.SelectedItem + ""),
+                    DateTime.Parse(dateTimePicker3.Text));
+                exms.Add(mark);
+            }
+            if (textBox1.Text != "" && textBox2.Text != "" && (comboBox1.SelectedItem + "") != "" &&
+                (comboBox2.SelectedItem + "") != "" && (comboBox3.SelectedItem + "") != "" &&
+                ((comboBox5.SelectedItem + "") != "" || (comboBox6.SelectedItem + "") != "" ||
+                (comboBox8.SelectedItem + "") != ""))
+            {
+                Student stud = new Student(textBox2.Text, textBox1.Text, exms, Form1.facs.Where(f => f.name == comboBox1.SelectedItem+ "").First(),
+                    Form1.groups.Where(g => g.name == comboBox3.SelectedItem + "").First(), Int32.Parse(comboBox2.SelectedItem + ""));
+                Form1.students.Add(stud);
+                Hide();
+            }
         }
     }
 }
