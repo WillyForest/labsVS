@@ -180,7 +180,14 @@ namespace GKS_lab1
                         if (sortedGroups[k].Count > 0)
                         {
                             elemsOfGroup1 = getElemsFromGroups(sortedGroups[i]);//берем все элементы всех строчек 1 группы
-                            elemsOfGroup2 = getElemsFromGroup(sortedGroups[k][j]); //берем все элементы 1 строчки 2 группы
+                            try
+                            {
+                                elemsOfGroup2 = getElemsFromGroup(sortedGroups[k][j]); //берем все элементы 1 строчки 2 группы
+                            } catch
+                            {
+                                j--;
+                                elemsOfGroup2 = getElemsFromGroup(sortedGroups[k][j]);
+                            }
                             if (doesContain(elemsOfGroup1, elemsOfGroup2))
                             {
                                 sortedGroups[i].Add(sortedGroups[k][j]);
@@ -191,7 +198,7 @@ namespace GKS_lab1
                     }
                 }
             }
-            label2.Text += "После ренжирования";
+            label2.Text += "После ренжирования:\n";
             foreach (List<string> group in sortedGroups)
             {
                 foreach (string el in group)
