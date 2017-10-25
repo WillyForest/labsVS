@@ -13,6 +13,7 @@ namespace GKS_lab1
     public partial class Form1 : Form
     {
         List<TextBox> strs = new List<TextBox>();
+        List<List<string>> elements = new List<List<string>>();
         List<Button> btns = new List<Button>();
         List<string> variables = new List<string>();
         List<string> alreadyUsedVars = new List<string>();
@@ -442,6 +443,288 @@ namespace GKS_lab1
 
         private void setGroups()
         {
+            List<string> group = new List<string>();
+            if (strs.Count == 2)
+            {
+                group = new List<string>();
+                group.Add(0 + "");
+                group.Add(1 + "");
+                groups.Add(group);
+            }
+            int maxElement = findMaxElem();
+            int indexOfMaxElI, indexOfMaxElJ;
+            for (int i = 0; i < strs.Count; i++)
+            {
+                notUsedVars.Add(i + ""); // выгрузили все строки в неиспользованные переменные
+            }
+            do
+            {
+                group = new List<string>();
+                do
+                {
+                    for (int i = 0; i < strs.Count; i++)
+                    {
+                        for (int j = 0; j < strs.Count; j++)
+                        {
+                            if (compared[i, j] == maxElement)
+                            {
+                                group = new List<string>();
+                                indexOfMaxElI = i;
+                                indexOfMaxElJ = j;
+                                if (!alreadyUsedVars.Contains(i + "") || !alreadyUsedVars.Contains(j + ""))
+                                {
+                                    compared[i, j] = -2;
+                                }
+                                if (!alreadyUsedVars.Contains(indexOfMaxElI + ""))
+                                {
+                                    group.Add(indexOfMaxElI + "");
+                                    alreadyUsedVars.Add(indexOfMaxElI + "");
+                                    notUsedVars.Remove(indexOfMaxElI + "");
+                                }
+                                if (!alreadyUsedVars.Contains(indexOfMaxElJ + ""))
+                                {
+                                    group.Add(indexOfMaxElJ + "");
+                                    alreadyUsedVars.Add(indexOfMaxElJ + "");
+                                    notUsedVars.Remove(indexOfMaxElJ + "");
+                                }
+
+                                for (int l = 0; l < group.Count; l++)
+                                {
+                                    for (int k = 0; k < strs.Count; k++)
+                                    {
+                                        if (compared[Int32.Parse(group[l]), k] == maxElement && !alreadyUsedVars.Contains(k + ""))
+                                        {
+                                            group.Add(k + "");
+                                            alreadyUsedVars.Add(k + "");
+                                            notUsedVars.Remove(k + "");
+                                            compared[Int32.Parse(group[l]), k] = -2;
+                                        }
+                                    }
+                                }
+                                if (group.Count > 0)
+                                    groups.Add(group);
+                            }
+                        }
+                    }
+                } while (findRowsWith(maxElement).Count > 0);
+                maxElement--;
+            } while (maxElement > -1);
+            if (groups.Where(g => g.Count == 1).Count() > 1)
+            {
+                group = new List<string>();
+                foreach (List<string> gr in groups.Where(g => g.Count == 1))
+                {
+                    group.Add(gr[0]);
+                }
+                for (int i = 0; i < group.Count; i++)
+                {
+                    groups.Remove(groups.Where(g => g.Count == 1).First());
+                }
+                groups.Add(group);
+            }
+            /*orest
+            int numberGroup = 0;
+            int max = findMaxElem();
+            for (int O = 0; O < strs.Count; O++)
+            { 
+                notUsedVars.Add(O + "");
+            }
+            do
+            {
+                List<int> groupList = new List<int>();
+                HashSet <int> groupSet = new HashSet<int>();
+                
+                for (int i = 0; i < strs.Count; i++)
+                {
+                    for (int j = 0; j < strs.Count; j++)
+                    {
+                        if (compared[i, j] == max && (notUsedVars.Contains(i + "") || notUsedVars.Contains(j+ "")))
+                        {
+                            bool isDuplicate = false;
+                            List<int> duplicateInt = new List<int>();
+                            groupSet.Add(i);
+                            groupSet.Add(j);
+                            int count;
+                            do
+                            {
+                                count = 0;
+                                groupList = new List<int>(groupSet);
+                                foreach (int gn in groupList)
+                                {
+                                    for (int l = 0; l < strs.Count; l++)
+                                    {
+                                        if (alreadyUsedVars.Contains(l + ""))
+                                        {
+                                            isDuplicate = true;
+                                            duplicateInt.Add(l);
+                                        }
+                                        if (max == compared[gn, l])
+                                        {
+                                            int size = groupSet.Count;
+                                            groupSet.Add(l);
+                                            int currentSize = groupSet.Count;
+                                            if (currentSize > size)
+                                                count++;
+                                        }
+                                    }
+                                }
+                            } while (count != 0);                            
+                            foreach (int x in duplicateInt)
+                            {
+                                if (isDuplicate)
+                                    groupSet.Remove(x);
+                            }
+                            goto label;
+                        }
+                        if (i == strs.Count - 1 && j == strs.Count - 1)
+                        {
+                            max--;
+                        }
+                    }
+                }
+                label:
+                List<string> group = new List<string>();
+                foreach (int elem in groupList)
+                {
+                    group.Add(elem + "");
+                }
+                if (!groups.Contains(group))
+                    groups.Add(group);
+                //group = new List<int>(groupSet);
+                foreach (int var in groupList)
+                {
+                    alreadyUsedVars.Add(var + "");
+                }
+                foreach (string var in alreadyUsedVars)
+                {
+                    if (notUsedVars.Contains(var))
+                    {
+                        notUsedVars.Remove(var);
+                    }
+                }
+                List<string> helpList = new List<string>();
+                if (numberGroup != 0)
+                {
+                    helpList = groups[numberGroup];
+                }
+                if (helpList.Count == 1 && notUsedVars.Count >= 2 && groupList.Count != 0)
+                {
+                    foreach (int var in groupList)
+                    {
+                        helpList.Add(var + "");
+                        groups[numberGroup].Clear();
+                        groups[numberGroup].AddRange(helpList);
+                    }
+
+                }
+                else if (groupList.Count != 0)
+                {
+
+                    List<string> grp = new List<string>();
+                    foreach (int elem in groupList)
+                    {
+                        grp.Add(elem + "");
+                    }
+                    if (!groups.Contains(grp))
+                    {
+                        groups.Add(grp);
+                    }
+                    //groups[++numberGroup].Add(var + "");
+
+                }
+                foreach (List<string> gr in groups)
+                {
+                    if (gr.Count == 1 && notUsedVars.Count == 1)
+                    {
+                        gr.Add(notUsedVars[0]);
+                        notUsedVars.RemoveAt(0);
+                        break;
+                    }
+                }
+                if (notUsedVars.Count <= 2 && notUsedVars.Count != 0)
+                {
+                    List<string> gro = new List<string>();
+                    gro.AddRange(notUsedVars);
+                    groups.Add(gro);
+                }
+            } while (max > -1);*/
+            label4.Location = new Point(300, strs.Count * 30 + 30);
+            label4.Text += "Группа\n";
+            foreach (List<string> g in groups)
+            {
+                foreach (string s in g)
+                {
+                    label4.Text += (Int32.Parse(s) + 1) + ", ";// s + ", ";
+                }
+                label4.Text += "\n";
+            }
+
+
+            label4.Text += "************************************";
+            /*
+
+            for (int i = 0; i < strs.Count; i++)
+            {
+                elements.Add(new List<string>());
+                for (int j = 0; j < strs[i].Text.Split(' ').Count(); j++)
+                {
+                    if (strs[i].Text.Split(' ')[j] != "")
+                    {
+                        elements[i].Add(strs[i].Text.Split(' ')[j]);
+                    }
+                }
+            }
+            int elem = findMaxElem();
+            int indexJ, indexI;
+            List<string> group = new List<string>();
+            while(true)
+            {
+                foreach (List<string> row in elements)
+                {
+                    if (row.Contains(elem + ""))
+                    {
+                        indexI = elements.IndexOf(row);
+                        indexJ = row.IndexOf(elem + "");
+                        group.Add(indexI + "");
+                        group.Add(indexJ + "");
+                        alreadyUsedVars.Add(indexI + "");
+                        alreadyUsedVars.Add(indexJ + "");
+                        for (int i = 0; i < row.Count; i++)
+                        {
+                            if (i != indexJ && row[i] == elem + "")
+                            {
+                                indexJ = i;
+                                group.Add(indexJ + "");
+                                alreadyUsedVars.Add(indexJ + "");
+                                for (int j = 0; j < elements[indexJ].Count; j++)
+                                {
+                                    if (!alreadyUsedVars.Contains(j + "") && elements[indexJ][j] == elem + "")
+                                    {
+                                        group.Add(j + "");
+                                        alreadyUsedVars.Add(j + "");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    groups.Add(group);
+                }
+                label4.Location = new Point(300, strs.Count * 30 + 30);
+                label4.Text += "Группа\n";
+                foreach (List<string> g in groups)
+                    foreach (string s in g)
+                    {
+                        {
+                            label4.Text += (Int32.Parse(s) + 1) + ", ";// s + ", ";
+                        }
+                        label4.Text += "\n";
+                    }
+                
+                
+                label1.Text = "";
+                break;
+            }*/
+            /*
             int elem = findMaxElem();
             List<string> group = new List<string>();
             int i = -1;
@@ -490,8 +773,8 @@ namespace GKS_lab1
                 
                 elem--;
             }
-            
-            
+            */
+
         }
 
         private void checkNotUsedVars()
@@ -542,7 +825,7 @@ namespace GKS_lab1
             int lim = rows;
             while (true)
             {
-                if (matrix[i, j] == matrix[i + k, j])
+                if (matrix[i, j] == matrix[i + k, j] && matrix[i,j] != false) //HERE
                 {
                     compared[i + k, i] += 1;
                 }

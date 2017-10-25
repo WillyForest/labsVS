@@ -93,7 +93,7 @@
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(179, 23);
             this.button6.TabIndex = 5;
-            this.button6.Text = "Выход";
+            this.button6.Text = "Записать и выйти";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
