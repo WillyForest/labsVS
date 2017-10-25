@@ -163,7 +163,7 @@ namespace GKS_lab1
         {
             setNewGroups();
             sortGroupsInNewGroups();
-            rangeSortedNewGroups();
+            //rangeSortedNewGroups();
             rangeGroups();
         }
 
@@ -175,28 +175,22 @@ namespace GKS_lab1
             {                                               //с последней
                 for (int k = i + 1; k < sortedGroups.Count; k++)
                 {
-                    int lim = sortedGroups[k].Count;
-                    for (int j = 0; j < lim; j++)
+                    int j = 0;
+                    do
                     {
-                        if (sortedGroups[k].Count > 0)
+                        if (j < sortedGroups[k].Count)
                         {
                             elemsOfGroup1 = getElemsFromGroups(sortedGroups[i]);//берем все элементы всех строчек 1 группы
-                            try
-                            {
-                                elemsOfGroup2 = getElemsFromGroup(sortedGroups[k][j]); //берем все элементы 1 строчки 2 группы
-                            } catch
-                            {
-                                j--;
-                                elemsOfGroup2 = getElemsFromGroup(sortedGroups[k][j]);
-                            }
+                            elemsOfGroup2 = getElemsFromGroup(sortedGroups[k][j]); //берем все элементы 1 строчки 2 группы
                             if (doesContain(elemsOfGroup1, elemsOfGroup2))
                             {
                                 sortedGroups[i].Add(sortedGroups[k][j]);
                                 sortedGroups[k].RemoveAt(j);
                                 j--;
                             }
+                            j++;
                         }
-                    }
+                    } while (sortedGroups[k].Count > 0 && j < sortedGroups[k].Count);
                 }
             }
             label2.Text += "После ренжирования:\n";
@@ -385,10 +379,13 @@ namespace GKS_lab1
                     i++;
                 }
                 //if (newGroups.Where(ngroup => ngroup.Count == maxElem).) 
-                    //если несколько одинаковых по величине групп
+                //если несколько одинаковых по величине групп
+                //was here
                 sortedNewGroups.Add(newGroups[posOfMaxEl]);
-                sortedGroups.Add(groups[posOfMaxEl]);
+                sortedGroups.Add(groups[posOfMaxEl]);//отут хуйня
                 newGroups.RemoveAt(posOfMaxEl);
+                groups.RemoveAt(posOfMaxEl);
+                //группа не меняется, записывает одинаковые
             } while (newGroups.Count > 0);
 
             label2.Text = "Новые отсортированные группы: \n";
@@ -399,14 +396,6 @@ namespace GKS_lab1
                     label2.Text += s + " ";
                 }
                 label2.Text += "Всего элементов : " + sng.Count + "\n";
-            }
-            foreach (List<string> group in sortedGroups)
-            {
-                foreach (string el in group)
-                {
-                    label2.Text += (Int32.Parse(el)+1) + " ";
-                }
-                label2.Text += "\n";
             }
             
             
@@ -522,145 +511,18 @@ namespace GKS_lab1
                 }
                 groups.Add(group);
             }
-            /*orest
-            int numberGroup = 0;
-            int max = findMaxElem();
-            for (int O = 0; O < strs.Count; O++)
-            { 
-                notUsedVars.Add(O + "");
-            }
-            do
-            {
-                List<int> groupList = new List<int>();
-                HashSet <int> groupSet = new HashSet<int>();
-                
-                for (int i = 0; i < strs.Count; i++)
-                {
-                    for (int j = 0; j < strs.Count; j++)
-                    {
-                        if (compared[i, j] == max && (notUsedVars.Contains(i + "") || notUsedVars.Contains(j+ "")))
-                        {
-                            bool isDuplicate = false;
-                            List<int> duplicateInt = new List<int>();
-                            groupSet.Add(i);
-                            groupSet.Add(j);
-                            int count;
-                            do
-                            {
-                                count = 0;
-                                groupList = new List<int>(groupSet);
-                                foreach (int gn in groupList)
-                                {
-                                    for (int l = 0; l < strs.Count; l++)
-                                    {
-                                        if (alreadyUsedVars.Contains(l + ""))
-                                        {
-                                            isDuplicate = true;
-                                            duplicateInt.Add(l);
-                                        }
-                                        if (max == compared[gn, l])
-                                        {
-                                            int size = groupSet.Count;
-                                            groupSet.Add(l);
-                                            int currentSize = groupSet.Count;
-                                            if (currentSize > size)
-                                                count++;
-                                        }
-                                    }
-                                }
-                            } while (count != 0);                            
-                            foreach (int x in duplicateInt)
-                            {
-                                if (isDuplicate)
-                                    groupSet.Remove(x);
-                            }
-                            goto label;
-                        }
-                        if (i == strs.Count - 1 && j == strs.Count - 1)
-                        {
-                            max--;
-                        }
-                    }
-                }
-                label:
-                List<string> group = new List<string>();
-                foreach (int elem in groupList)
-                {
-                    group.Add(elem + "");
-                }
-                if (!groups.Contains(group))
-                    groups.Add(group);
-                //group = new List<int>(groupSet);
-                foreach (int var in groupList)
-                {
-                    alreadyUsedVars.Add(var + "");
-                }
-                foreach (string var in alreadyUsedVars)
-                {
-                    if (notUsedVars.Contains(var))
-                    {
-                        notUsedVars.Remove(var);
-                    }
-                }
-                List<string> helpList = new List<string>();
-                if (numberGroup != 0)
-                {
-                    helpList = groups[numberGroup];
-                }
-                if (helpList.Count == 1 && notUsedVars.Count >= 2 && groupList.Count != 0)
-                {
-                    foreach (int var in groupList)
-                    {
-                        helpList.Add(var + "");
-                        groups[numberGroup].Clear();
-                        groups[numberGroup].AddRange(helpList);
-                    }
-
-                }
-                else if (groupList.Count != 0)
-                {
-
-                    List<string> grp = new List<string>();
-                    foreach (int elem in groupList)
-                    {
-                        grp.Add(elem + "");
-                    }
-                    if (!groups.Contains(grp))
-                    {
-                        groups.Add(grp);
-                    }
-                    //groups[++numberGroup].Add(var + "");
-
-                }
-                foreach (List<string> gr in groups)
-                {
-                    if (gr.Count == 1 && notUsedVars.Count == 1)
-                    {
-                        gr.Add(notUsedVars[0]);
-                        notUsedVars.RemoveAt(0);
-                        break;
-                    }
-                }
-                if (notUsedVars.Count <= 2 && notUsedVars.Count != 0)
-                {
-                    List<string> gro = new List<string>();
-                    gro.AddRange(notUsedVars);
-                    groups.Add(gro);
-                }
-            } while (max > -1);*/
+            
             label4.Location = new Point(300, strs.Count * 30 + 30);
             label4.Text += "Группа\n";
             foreach (List<string> g in groups)
             {
                 foreach (string s in g)
                 {
-                    label4.Text += (Int32.Parse(s) + 1) + ", ";// s + ", ";
+                    label4.Text += (Int32.Parse(s) + 1) + ", ";
                 }
                 label4.Text += "\n";
             }
-
-
-            label4.Text += "************************************";
+            label1.Text = "";
             /*
 
             for (int i = 0; i < strs.Count; i++)
