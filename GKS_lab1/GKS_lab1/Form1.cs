@@ -163,7 +163,6 @@ namespace GKS_lab1
         {
             setNewGroups();
             sortGroupsInNewGroups();
-            //rangeSortedNewGroups();
             rangeGroups();
         }
 
@@ -244,124 +243,6 @@ namespace GKS_lab1
             return answer;
         }
 
-        private void rangeSortedNewGroups()
-        {/*
-            int first = 0;
-            while (first < sortedGroups.Count)// - 1)
-            {
-                
-                bool contain = true;
-                for (int i = first + 1; i < sortedGroups.Count; i++)//проходим по элементам массива групп (группа)
-                {
-                    for (int j = 0; j < sortedGroups[i].Count; j++)//проходим по элементам группы (номера групп)
-                    {
-                        contain = true;
-                        string[] tempStr = new String[strs[Int32.Parse(sortedGroups[i][j])].Text.Length];
-                        tempStr = strs[Int32.Parse(sortedGroups[i][j])].Text.Split(' '); //достаем элементы для каждой группы
-                        for (int k = 0; k < tempStr.Length; k++)//для каждого элемента конкретной группы
-                        {
-                            if (!sortedNewGroups[first].Contains(tempStr[k]) && tempStr[k] != "")
-                            {
-                                contain = false;
-                            }
-                        }
-                        if (contain && !sortedGroups[first].Contains(sortedGroups[i][j]))
-                        {
-                            sortedGroups[first].Add(sortedGroups[i][j]);
-                            sortedGroups[i].Remove(sortedGroups[i][j]);
-                        }//РАБОТАЕТ, на каждом шаге добавляет элемент в первую группу, если нужно.
-                         ///TODO цикл, чтобы всё на автомате
-                        label2.Text += "\nПосле ренж\n";
-                        foreach (List<string> group in sortedGroups)
-                        {
-                            foreach (string el in group)
-                            {
-                                label2.Text += (Int32.Parse(el) + 1) + " ";
-                            }
-                            label2.Text += "\n";
-                        }
-                    }
-                }
-
-                /*List<string> rangedGroup = new List<string>();
-                rangedGroup = sortedGroups[first]; //сохраняем первую группу после ренжирования
-                sortedGroups.RemoveAt(first); //удаляем ее из временного массива
-                rangedGroups.Add(rangedGroup);
-                if (sortedGroups.Count < 2)
-                {
-                    rangedGroup = new List<string>();
-                    rangedGroup = sortedGroups[first]; //Если не осталось элементов для сравнения
-                    sortedGroups.RemoveAt(first); //перепишем последние в новую группу
-                    rangedGroups.Add(rangedGroup);
-                }
-                first++;
-            }*/
-            /*label2.Text += "\nПосле ренжирования:\n";
-            foreach (List<string> group in rangedGroups)
-            {
-                foreach (string el in group)
-                {
-                    label2.Text += (Int32.Parse(el) + 1) + " ";
-                }
-                label2.Text += "\n";
-            }*/
-            //int j = 0;
-            /*
-            foreach (List<string> gr in sortedGroups)
-            {
-                bool fullContaining = true;
-                int index = 0;
-                foreach (string elOfGroup in gr)
-                {
-                    foreach (TextBox tb in strs)
-                    {
-                        string[] tempStr = new String[strs[Int32.Parse(elOfGroup)].Text.Length];
-                        tempStr = strs[Int32.Parse(elOfGroup)].Text.Split(' ');
-                        for (int i = 0; i < tempStr.Length; i++)
-                        {
-                            if (!sortedNewGroups[j].Contains(tempStr[i]))
-                            {
-                                fullContaining = false;
-                                break;
-                            } else
-                            {
-                                index = sortedGroups.IndexOf(gr);
-                            }
-
-                        }
-                    }
-                } //если все элементы конкретной строчки группы содержатся в первой - 
-                 //добавляем ее индекс в 1
-                 if (fullContaining && !sortedGroups[j].Contains(index + ""))
-                {
-                    sortedGroups[j].Add(index + "");
-                }
-            }
-            
-            //и так на каждом шагу
-            foreach (string sngel in sortedNewGroups[1])
-            {
-                if (sortedNewGroups[0].Contains(sngel))
-                {
-                    continue;
-                    //флажок, если элемент есть, то 1
-                    //потом если осталась 1, добавляем в группу эту группу, иначе - оставляем
-                } else
-                {
-                    break;
-                }
-            }
-            //хз
-            foreach (List<string> group in sortedGroups)
-            {
-                foreach (string el in group)
-                {
-                    label2.Text += (Int32.Parse(el) + 1) + " ";
-                }
-                label2.Text += "\n";
-            }*/
-        }
-
         private void sortGroupsInNewGroups()
         {
             do
@@ -380,7 +261,6 @@ namespace GKS_lab1
                 }
                 //if (newGroups.Where(ngroup => ngroup.Count == maxElem).) 
                 //если несколько одинаковых по величине групп
-                //was here
                 sortedNewGroups.Add(newGroups[posOfMaxEl]);
                 sortedGroups.Add(groups[posOfMaxEl]);//отут хуйня
                 newGroups.RemoveAt(posOfMaxEl);
@@ -397,8 +277,6 @@ namespace GKS_lab1
                 }
                 label2.Text += "Всего элементов : " + sng.Count + "\n";
             }
-            
-            
         }
 
         private void setNewGroups()
@@ -523,120 +401,6 @@ namespace GKS_lab1
                 label4.Text += "\n";
             }
             label1.Text = "";
-            /*
-
-            for (int i = 0; i < strs.Count; i++)
-            {
-                elements.Add(new List<string>());
-                for (int j = 0; j < strs[i].Text.Split(' ').Count(); j++)
-                {
-                    if (strs[i].Text.Split(' ')[j] != "")
-                    {
-                        elements[i].Add(strs[i].Text.Split(' ')[j]);
-                    }
-                }
-            }
-            int elem = findMaxElem();
-            int indexJ, indexI;
-            List<string> group = new List<string>();
-            while(true)
-            {
-                foreach (List<string> row in elements)
-                {
-                    if (row.Contains(elem + ""))
-                    {
-                        indexI = elements.IndexOf(row);
-                        indexJ = row.IndexOf(elem + "");
-                        group.Add(indexI + "");
-                        group.Add(indexJ + "");
-                        alreadyUsedVars.Add(indexI + "");
-                        alreadyUsedVars.Add(indexJ + "");
-                        for (int i = 0; i < row.Count; i++)
-                        {
-                            if (i != indexJ && row[i] == elem + "")
-                            {
-                                indexJ = i;
-                                group.Add(indexJ + "");
-                                alreadyUsedVars.Add(indexJ + "");
-                                for (int j = 0; j < elements[indexJ].Count; j++)
-                                {
-                                    if (!alreadyUsedVars.Contains(j + "") && elements[indexJ][j] == elem + "")
-                                    {
-                                        group.Add(j + "");
-                                        alreadyUsedVars.Add(j + "");
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    groups.Add(group);
-                }
-                label4.Location = new Point(300, strs.Count * 30 + 30);
-                label4.Text += "Группа\n";
-                foreach (List<string> g in groups)
-                    foreach (string s in g)
-                    {
-                        {
-                            label4.Text += (Int32.Parse(s) + 1) + ", ";// s + ", ";
-                        }
-                        label4.Text += "\n";
-                    }
-                
-                
-                label1.Text = "";
-                break;
-            }*/
-            /*
-            int elem = findMaxElem();
-            List<string> group = new List<string>();
-            int i = -1;
-            while (true)
-            {
-                i++;
-                groups.Add(group);
-                groups[i] = findRowsWith(elem);
-                while (groups[i].Count < 2)
-                {
-                    elem--;
-                    List<string> tempGroup = new List<string>();
-                    tempGroup = findRowsWith(elem);
-                    foreach(string tg in tempGroup)
-                    {
-                        groups[i].Add(tg);
-                    }
-                    if (elem < 0)
-                    {
-                        label1.Text = "WARNING";
-                        break;
-                    }
-                    
-                }
-                
-                if (strs.Count - alreadyUsedVars.Count == 1)
-                {
-                    checkNotUsedVars();
-                    groups[i].Add(notUsedVars[0]);
-                    alreadyUsedVars.Add(notUsedVars[0]);
-                }
-                label4.Location = new Point(300, strs.Count * 30 + 30);
-                label4.Text += "Группа №" + (i + 1) + "\n";
-                foreach (string s in groups[i])
-                {
-                    label4.Text += (Int32.Parse(s) + 1) + ", ";// s + ", ";
-                }
-                label4.Text += "\n";
-                label1.Text = "";
-
-                if (strs.Count == alreadyUsedVars.Count)
-                {
-                    break;
-                }
-                
-                
-                elem--;
-            }
-            */
-
         }
 
         private void checkNotUsedVars()
