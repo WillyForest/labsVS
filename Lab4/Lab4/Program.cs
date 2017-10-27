@@ -11,7 +11,10 @@ namespace Lab4
         static void Main(string[] args)
         {
             Console.WriteLine("Если вы хотите ввести данные вручную - нажмите 1.");
-            if (Int32.Parse(Console.ReadLine()) == 1)
+            string line = Console.ReadLine();
+            if (line == "")
+                line = "2";
+            if (Int32.Parse(line) == 1)
             {
                 Console.WriteLine("Введите характеристики дизельного двигателя.");
                 Console.WriteLine("Введите название двигателя, модель");
