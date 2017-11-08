@@ -35,7 +35,7 @@ namespace GKS_lab1
             btns.Add(generateButton("Матрица", 200, 50));
             btns[btns.Count - 1].Click += new EventHandler(btn1_Click);
             btns.Add(generateButton("TestCase", 200, 235));
-            btns[btns.Count - 1].Click += new EventHandler(btntest_Click);
+            btns[btns.Count - 1].Click += new EventHandler(btntest_Click); //Ввести тесткейс автоматически
             label1.AutoSize = true;
             label2.AutoSize = true;
             label3.AutoSize = true;
@@ -56,8 +56,8 @@ namespace GKS_lab1
             strs[numOfStr++].Text = "T4 T5 C3";
             btns.Where(btn => btn.Location == new Point(200, 235)).FirstOrDefault().Dispose();
         }
-        private int findMaxElem()
-        {
+        private int findMaxElem() //ищем максимальный элемент в матрице compared (та, что получилась 
+        {                           //после сравнения элементов матрицы схожести)
             int maxElem = 0;
             for (int i = 0; i < strs.Count; i++)
             {
@@ -70,7 +70,7 @@ namespace GKS_lab1
             return maxElem;
         }
 
-        private void showMatrix()
+        private void showMatrix() // функция вывода матрицы схожести
         {
 
             label2.Location = new Point(20, 30 + 30 * strs.Count);
@@ -95,8 +95,8 @@ namespace GKS_lab1
             }
         }
 
-        private void setMatrix()
-        {
+        private void setMatrix() //функция создания матрицы схожести на основании данных из текстбоксов
+        {                          
             int j = 0;
             foreach (TextBox s in strs)
             {
@@ -117,7 +117,7 @@ namespace GKS_lab1
             }
         }
 
-        private void btn1_Click(object sender, EventArgs e)
+        private void btn1_Click(object sender, EventArgs e)//обработка нажатия кнопки создания матрицы
         {
             if (strs[strs.Count - 1].Text == "") //если последнее поле является пустым - удаляем его
             {                                       
@@ -145,8 +145,9 @@ namespace GKS_lab1
             btns[btns.Count - 1].Click += new EventHandler(btn2_Click);
         }
 
-        private void btn2_Click(object sender, EventArgs e)
-        {   /* функция удаления всех элементов с формы
+        private void btn2_Click(object sender, EventArgs e) //обработка нажатия кнопки для создания групп
+        {                                                   //(лаб 1)            
+            /* функция удаления всех элементов с формы
             foreach(TextBox tb in strs)
             {
                 this.Controls.Remove(tb);
@@ -176,14 +177,14 @@ namespace GKS_lab1
             btns.Add(generateButton("Далeе", 200, 110));
             btns[btns.Count - 1].Click += new EventHandler(btn3_Click);
         }
-        private void btn3_Click(object sender, EventArgs e)
-        {
+        private void btn3_Click(object sender, EventArgs e) //обработка нажатия кнопки ренжирования групп
+        {                                                   //(лаб 2)
             setNewGroups();
             sortGroupsInNewGroups();
             rangeGroups();
         }
 
-        private void rangeGroups()
+        private void rangeGroups() // функция поиска элементов, которые уже входят в группы выше (ренжирование)
         {
             List<string> elemsOfGroup1 = new List<string>();
             List<string> elemsOfGroup2 = new List<string>();
@@ -208,7 +209,7 @@ namespace GKS_lab1
                         }
                     } while (sortedGroups[k].Count > 0 && j < sortedGroups[k].Count);
                 }
-            }
+            }//вывод результатов
             label2.Text += "После ренжирования:\n";
             foreach (List<string> group in sortedGroups)
             {
@@ -221,7 +222,8 @@ namespace GKS_lab1
         }
 
         private bool doesContain(List<string> elemsOfGroup1, List<string> elemsOfGroup2)
-        {
+        {    //содержат ли элеметы первого листа элементы второго. Если да - возвращает true
+        
             bool contains = true;
             foreach(string elem in elemsOfGroup2)
             {
@@ -233,7 +235,7 @@ namespace GKS_lab1
             return contains;
         }
 
-        private List<string> getElemsFromGroup(string group)
+        private List<string> getElemsFromGroup(string group) //получает все элементы с переданной группы
         {
             List<string> answer = new List<string>();
             string[] tempStr = new String[strs[Int32.Parse(group)].Text.Length];
@@ -245,7 +247,7 @@ namespace GKS_lab1
             return answer;
         }
 
-        private List<string> getElemsFromGroups(List<string> list)
+        private List<string> getElemsFromGroups(List<string> list)// получает все элементы из списка групп
         {
             List<string> answer = new List<string>();
             foreach (string group in list)
@@ -260,8 +262,8 @@ namespace GKS_lab1
             return answer;
         }
 
-        private void sortGroupsInNewGroups()
-        {
+        private void sortGroupsInNewGroups() //сортирует группы по количеству элементов и пишет их в 
+        {                                           //sortedGroups
             do
             {
                 int maxElem = 0;
@@ -279,10 +281,9 @@ namespace GKS_lab1
                 //if (newGroups.Where(ngroup => ngroup.Count == maxElem).) 
                 //если несколько одинаковых по величине групп
                 sortedNewGroups.Add(newGroups[posOfMaxEl]);
-                sortedGroups.Add(groups[posOfMaxEl]);//отут хуйня
+                sortedGroups.Add(groups[posOfMaxEl]);
                 newGroups.RemoveAt(posOfMaxEl);
                 groups.RemoveAt(posOfMaxEl);
-                //группа не меняется, записывает одинаковые
             } while (newGroups.Count > 0);
 
             label2.Text = "Новые отсортированные группы: \n";
@@ -296,7 +297,7 @@ namespace GKS_lab1
             }
         }
 
-        private void setNewGroups()
+        private void setNewGroups()//пишет элементы группы (ex. T1 T2 T3) в newGroups
         {
             label2.Location = new Point(20, 130 + 30 * strs.Count);
             label2.Text = "Новые группы: \n";
@@ -325,7 +326,7 @@ namespace GKS_lab1
             }
         }
 
-        private void setGroups()
+        private void setGroups() // Работа лабы 1. Создаем группы из входных данных
         {
             List<string> group = new List<string>();
             if (strs.Count == 2)
@@ -420,7 +421,7 @@ namespace GKS_lab1
             label1.Text = "";
         }
 
-        private void checkNotUsedVars()
+        private void checkNotUsedVars()// пишем в лист notUsedVars все переменные, которые еще не в группах
         {
             int i = 0;
             foreach (TextBox str in strs)
@@ -437,7 +438,7 @@ namespace GKS_lab1
             }
         }
 
-        private List<string> findRowsWith(int elem)
+        private List<string> findRowsWith(int elem) //ищет строчку с конкретным элементом elem
         {
             List<string> group = new List<string>();
             for (int i = 0; i < strs.Count; i++)
@@ -454,7 +455,7 @@ namespace GKS_lab1
             return group;
         }
 
-        private void setComparedMatrix()
+        private void setComparedMatrix() // создание матрицы схожести
         {
             int rows = strs.Count;
             compared = new int[rows, rows];
@@ -468,7 +469,7 @@ namespace GKS_lab1
             int lim = rows;
             while (true)
             {
-                if (matrix[i, j] == matrix[i + k, j] && matrix[i,j] != false) //HERE
+                if (matrix[i, j] == matrix[i + k, j])// && matrix[i,j] != false) //вечный вопрос, учитываюся нули или нет
                 {
                     compared[i + k, i] += 1;
                 }
@@ -511,7 +512,7 @@ namespace GKS_lab1
             }
         }
 
-        private void btn0_Click(object sender, EventArgs e)
+        private void btn0_Click(object sender, EventArgs e) //обработка нажатия кнопки добавления строки
         {
             if (strs[strs.Count - 1].Text != "")
             {
@@ -522,7 +523,7 @@ namespace GKS_lab1
             }
         }
 
-        private Button generateButton(string name, int x, int y)
+        private Button generateButton(string name, int x, int y) 
         {
             Button btn = new Button();
             btn.Text = name;
