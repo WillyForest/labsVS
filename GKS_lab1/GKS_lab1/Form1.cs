@@ -31,14 +31,31 @@ namespace GKS_lab1
             InitializeComponent();
             strs.Add(generateTextbox());
             btns.Add(generateButton("Добавить", 200, 20));
-            btns[0].Click += new EventHandler(btn0_Click);
+            btns[btns.Count - 1].Click += new EventHandler(btn0_Click);
             btns.Add(generateButton("Матрица", 200, 50));
-            btns[1].Click += new EventHandler(btn1_Click);
+            btns[btns.Count - 1].Click += new EventHandler(btn1_Click);
+            btns.Add(generateButton("TestCase", 200, 235));
+            btns[btns.Count - 1].Click += new EventHandler(btntest_Click);
             label1.AutoSize = true;
             label2.AutoSize = true;
             label3.AutoSize = true;
         }
-
+        private void btntest_Click(object sender, EventArgs e)
+        {
+            int numOfStr = 0;
+            strs[numOfStr++].Text = "T1 T2 T3 C1 C2";
+            btn0_Click(sender, e);
+            strs[numOfStr++].Text = "T2 T3 C1";
+            btn0_Click(sender, e);
+            strs[numOfStr++].Text = "T3 T1";
+            btn0_Click(sender, e);
+            strs[numOfStr++].Text = "T3";
+            btn0_Click(sender, e);
+            strs[numOfStr++].Text = "T4 T5";
+            btn0_Click(sender, e);
+            strs[numOfStr++].Text = "T4 T5 C3";
+            btns.Where(btn => btn.Location == new Point(200, 235)).FirstOrDefault().Dispose();
+        }
         private int findMaxElem()
         {
             int maxElem = 0;
@@ -125,7 +142,7 @@ namespace GKS_lab1
             setMatrix();
             showMatrix();
             btns.Add(generateButton("Далeе", 200, 80));
-            btns[2].Click += new EventHandler(btn2_Click);
+            btns[btns.Count - 1].Click += new EventHandler(btn2_Click);
         }
 
         private void btn2_Click(object sender, EventArgs e)
@@ -157,7 +174,7 @@ namespace GKS_lab1
             setGroups();
 
             btns.Add(generateButton("Далeе", 200, 110));
-            btns[3].Click += new EventHandler(btn3_Click);
+            btns[btns.Count - 1].Click += new EventHandler(btn3_Click);
         }
         private void btn3_Click(object sender, EventArgs e)
         {
