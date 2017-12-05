@@ -2,7 +2,7 @@
 {
 
 
-    partial class MyData
+    partial class MyData1
     {
     }
 }

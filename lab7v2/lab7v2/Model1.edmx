@@ -1,0 +1,576 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Laba2_1Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DcDiscipline">
+          <Key>
+            <PropertyRef Name="DcDisciplineId" />
+          </Key>
+          <Property Name="DcDisciplineId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DcPosition">
+          <Key>
+            <PropertyRef Name="DcPositionId" />
+          </Key>
+          <Property Name="DcPositionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DcSubdivision">
+          <Key>
+            <PropertyRef Name="DcSubdivisionId" />
+          </Key>
+          <Property Name="DcSubdivisionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Duties">
+          <Key>
+            <PropertyRef Name="DutiesId" />
+          </Key>
+          <Property Name="DutiesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DcPositionId" Type="int" Nullable="false" />
+          <Property Name="DcSubdivisionId" Type="int" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="EmployeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Surname" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Patronymic" Type="varchar" MaxLength="20" />
+          <Property Name="Oklad" Type="money" Nullable="false" />
+          <Property Name="BirthdayCity" Type="varchar" MaxLength="10" />
+          <Property Name="Nadbavka" Type="money" />
+          <Property Name="DataVuplatu" Type="date" />
+          <Property Name="DutiesId" Type="int" />
+          <Property Name="Birthday" Type="date" />
+        </EntityType>
+        <EntityType Name="Exam">
+          <Key>
+            <PropertyRef Name="ExamId" />
+          </Key>
+          <Property Name="ExamId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Mark" Type="int" Nullable="false" />
+          <Property Name="DateExam" Type="date" Nullable="false" />
+          <Property Name="StudentId" Type="int" Nullable="false" />
+          <Property Name="DcDisciplineId" Type="int" Nullable="false" />
+          <Property Name="EmployeeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="StudentId" />
+          </Key>
+          <Property Name="StudentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Surname" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Patronymic" Type="varchar" MaxLength="20" />
+          <Property Name="Birthday" Type="date" Nullable="false" />
+          <Property Name="RecordBook" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="BirthdayCity" Type="varchar" MaxLength="10" />
+          <Property Name="StudyGroupId" Type="int" Nullable="false" />
+          <Property Name="Stipendia" Type="money" />
+        </EntityType>
+        <EntityType Name="StudyGroup">
+          <Key>
+            <PropertyRef Name="StudyGroupId" />
+          </Key>
+          <Property Name="StudyGroupId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="DcSubdivisionId" Type="int" Nullable="false" />
+          <Property Name="DataVstup" Type="date" />
+        </EntityType>
+        <Association Name="FK_Duties_DcPosition">
+          <End Role="DcPosition" Type="Self.DcPosition" Multiplicity="1" />
+          <End Role="Duties" Type="Self.Duties" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DcPosition">
+              <PropertyRef Name="DcPositionId" />
+            </Principal>
+            <Dependent Role="Duties">
+              <PropertyRef Name="DcPositionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Duties_DcSubdivision">
+          <End Role="DcSubdivision" Type="Self.DcSubdivision" Multiplicity="0..1" />
+          <End Role="Duties" Type="Self.Duties" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DcSubdivision">
+              <PropertyRef Name="DcSubdivisionId" />
+            </Principal>
+            <Dependent Role="Duties">
+              <PropertyRef Name="DcSubdivisionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Duties">
+          <End Role="Duties" Type="Self.Duties" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Duties">
+              <PropertyRef Name="DutiesId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="DutiesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Exam_DcDiscipline">
+          <End Role="DcDiscipline" Type="Self.DcDiscipline" Multiplicity="1" />
+          <End Role="Exam" Type="Self.Exam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DcDiscipline">
+              <PropertyRef Name="DcDisciplineId" />
+            </Principal>
+            <Dependent Role="Exam">
+              <PropertyRef Name="DcDisciplineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Exam_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Exam" Type="Self.Exam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="Exam">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Exam_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="Exam" Type="Self.Exam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentId" />
+            </Principal>
+            <Dependent Role="Exam">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_StudyGroup">
+          <End Role="StudyGroup" Type="Self.StudyGroup" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudyGroup">
+              <PropertyRef Name="StudyGroupId" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="StudyGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudyGroup_DcSubdivision">
+          <End Role="DcSubdivision" Type="Self.DcSubdivision" Multiplicity="1" />
+          <End Role="StudyGroup" Type="Self.StudyGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DcSubdivision">
+              <PropertyRef Name="DcSubdivisionId" />
+            </Principal>
+            <Dependent Role="StudyGroup">
+              <PropertyRef Name="DcSubdivisionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Laba2_1ModelContainer">
+          <EntitySet Name="DcDiscipline" EntityType="Self.DcDiscipline" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DcPosition" EntityType="Self.DcPosition" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DcSubdivision" EntityType="Self.DcSubdivision" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Duties" EntityType="Self.Duties" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Exam" EntityType="Self.Exam" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudyGroup" EntityType="Self.StudyGroup" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Duties_DcPosition" Association="Self.FK_Duties_DcPosition">
+            <End Role="DcPosition" EntitySet="DcPosition" />
+            <End Role="Duties" EntitySet="Duties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Duties_DcSubdivision" Association="Self.FK_Duties_DcSubdivision">
+            <End Role="DcSubdivision" EntitySet="DcSubdivision" />
+            <End Role="Duties" EntitySet="Duties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Duties" Association="Self.FK_Employee_Duties">
+            <End Role="Duties" EntitySet="Duties" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Exam_DcDiscipline" Association="Self.FK_Exam_DcDiscipline">
+            <End Role="DcDiscipline" EntitySet="DcDiscipline" />
+            <End Role="Exam" EntitySet="Exam" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Exam_Employee" Association="Self.FK_Exam_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Exam" EntitySet="Exam" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Exam_Student" Association="Self.FK_Exam_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="Exam" EntitySet="Exam" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_StudyGroup" Association="Self.FK_Student_StudyGroup">
+            <End Role="StudyGroup" EntitySet="StudyGroup" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudyGroup_DcSubdivision" Association="Self.FK_StudyGroup_DcSubdivision">
+            <End Role="DcSubdivision" EntitySet="DcSubdivision" />
+            <End Role="StudyGroup" EntitySet="StudyGroup" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Laba2_1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DcDiscipline">
+          <Key>
+            <PropertyRef Name="DcDisciplineId" />
+          </Key>
+          <Property Name="DcDisciplineId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Exam" Relationship="Self.FK_Exam_DcDiscipline" FromRole="DcDiscipline" ToRole="Exam" />
+        </EntityType>
+        <EntityType Name="DcPosition">
+          <Key>
+            <PropertyRef Name="DcPositionId" />
+          </Key>
+          <Property Name="DcPositionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Duties" Relationship="Self.FK_Duties_DcPosition" FromRole="DcPosition" ToRole="Duties" />
+        </EntityType>
+        <EntityType Name="DcSubdivision">
+          <Key>
+            <PropertyRef Name="DcSubdivisionId" />
+          </Key>
+          <Property Name="DcSubdivisionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Duties" Relationship="Self.FK_Duties_DcSubdivision" FromRole="DcSubdivision" ToRole="Duties" />
+          <NavigationProperty Name="StudyGroup" Relationship="Self.FK_StudyGroup_DcSubdivision" FromRole="DcSubdivision" ToRole="StudyGroup" />
+        </EntityType>
+        <EntityType Name="Duties">
+          <Key>
+            <PropertyRef Name="DutiesId" />
+          </Key>
+          <Property Name="DutiesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DcPositionId" Type="Int32" Nullable="false" />
+          <Property Name="DcSubdivisionId" Type="Int32" />
+          <NavigationProperty Name="DcPosition" Relationship="Self.FK_Duties_DcPosition" FromRole="Duties" ToRole="DcPosition" />
+          <NavigationProperty Name="DcSubdivision" Relationship="Self.FK_Duties_DcSubdivision" FromRole="Duties" ToRole="DcSubdivision" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Duties" FromRole="Duties" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Surname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Patronymic" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Oklad" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="BirthdayCity" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Nadbavka" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DataVuplatu" Type="DateTime" Precision="0" />
+          <Property Name="DutiesId" Type="Int32" />
+          <Property Name="Birthday" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Duties" Relationship="Self.FK_Employee_Duties" FromRole="Employee" ToRole="Duties" />
+          <NavigationProperty Name="Exam" Relationship="Self.FK_Exam_Employee" FromRole="Employee" ToRole="Exam" />
+        </EntityType>
+        <EntityType Name="Exam">
+          <Key>
+            <PropertyRef Name="ExamId" />
+          </Key>
+          <Property Name="ExamId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Mark" Type="Int32" Nullable="false" />
+          <Property Name="DateExam" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="StudentId" Type="Int32" Nullable="false" />
+          <Property Name="DcDisciplineId" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DcDiscipline" Relationship="Self.FK_Exam_DcDiscipline" FromRole="Exam" ToRole="DcDiscipline" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Exam_Employee" FromRole="Exam" ToRole="Employee" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_Exam_Student" FromRole="Exam" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="StudentId" />
+          </Key>
+          <Property Name="StudentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Surname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Patronymic" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="RecordBook" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BirthdayCity" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="StudyGroupId" Type="Int32" Nullable="false" />
+          <Property Name="Stipendia" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Exam" Relationship="Self.FK_Exam_Student" FromRole="Student" ToRole="Exam" />
+          <NavigationProperty Name="StudyGroup" Relationship="Self.FK_Student_StudyGroup" FromRole="Student" ToRole="StudyGroup" />
+        </EntityType>
+        <EntityType Name="StudyGroup">
+          <Key>
+            <PropertyRef Name="StudyGroupId" />
+          </Key>
+          <Property Name="StudyGroupId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DcSubdivisionId" Type="Int32" Nullable="false" />
+          <Property Name="DataVstup" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="DcSubdivision" Relationship="Self.FK_StudyGroup_DcSubdivision" FromRole="StudyGroup" ToRole="DcSubdivision" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_Student_StudyGroup" FromRole="StudyGroup" ToRole="Student" />
+        </EntityType>
+        <Association Name="FK_Exam_DcDiscipline">
+          <End Role="DcDiscipline" Type="Self.DcDiscipline" Multiplicity="1" />
+          <End Role="Exam" Type="Self.Exam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DcDiscipline">
+              <PropertyRef Name="DcDisciplineId" />
+            </Principal>
+            <Dependent Role="Exam">
+              <PropertyRef Name="DcDisciplineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Duties_DcPosition">
+          <End Role="DcPosition" Type="Self.DcPosition" Multiplicity="1" />
+          <End Role="Duties" Type="Self.Duties" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DcPosition">
+              <PropertyRef Name="DcPositionId" />
+            </Principal>
+            <Dependent Role="Duties">
+              <PropertyRef Name="DcPositionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Duties_DcSubdivision">
+          <End Role="DcSubdivision" Type="Self.DcSubdivision" Multiplicity="0..1" />
+          <End Role="Duties" Type="Self.Duties" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DcSubdivision">
+              <PropertyRef Name="DcSubdivisionId" />
+            </Principal>
+            <Dependent Role="Duties">
+              <PropertyRef Name="DcSubdivisionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudyGroup_DcSubdivision">
+          <End Role="DcSubdivision" Type="Self.DcSubdivision" Multiplicity="1" />
+          <End Role="StudyGroup" Type="Self.StudyGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DcSubdivision">
+              <PropertyRef Name="DcSubdivisionId" />
+            </Principal>
+            <Dependent Role="StudyGroup">
+              <PropertyRef Name="DcSubdivisionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Duties">
+          <End Role="Duties" Type="Self.Duties" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Duties">
+              <PropertyRef Name="DutiesId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="DutiesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Exam_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Exam" Type="Self.Exam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="Exam">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Exam_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="Exam" Type="Self.Exam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentId" />
+            </Principal>
+            <Dependent Role="Exam">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_StudyGroup">
+          <End Role="StudyGroup" Type="Self.StudyGroup" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudyGroup">
+              <PropertyRef Name="StudyGroupId" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="StudyGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Laba2_1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DcDiscipline" EntityType="Self.DcDiscipline" />
+          <EntitySet Name="DcPosition" EntityType="Self.DcPosition" />
+          <EntitySet Name="DcSubdivision" EntityType="Self.DcSubdivision" />
+          <EntitySet Name="Duties" EntityType="Self.Duties" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" />
+          <EntitySet Name="Exam" EntityType="Self.Exam" />
+          <EntitySet Name="Student" EntityType="Self.Student" />
+          <EntitySet Name="StudyGroup" EntityType="Self.StudyGroup" />
+          <AssociationSet Name="FK_Exam_DcDiscipline" Association="Self.FK_Exam_DcDiscipline">
+            <End Role="DcDiscipline" EntitySet="DcDiscipline" />
+            <End Role="Exam" EntitySet="Exam" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Duties_DcPosition" Association="Self.FK_Duties_DcPosition">
+            <End Role="DcPosition" EntitySet="DcPosition" />
+            <End Role="Duties" EntitySet="Duties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Duties_DcSubdivision" Association="Self.FK_Duties_DcSubdivision">
+            <End Role="DcSubdivision" EntitySet="DcSubdivision" />
+            <End Role="Duties" EntitySet="Duties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudyGroup_DcSubdivision" Association="Self.FK_StudyGroup_DcSubdivision">
+            <End Role="DcSubdivision" EntitySet="DcSubdivision" />
+            <End Role="StudyGroup" EntitySet="StudyGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Duties" Association="Self.FK_Employee_Duties">
+            <End Role="Duties" EntitySet="Duties" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Exam_Employee" Association="Self.FK_Exam_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Exam" EntitySet="Exam" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Exam_Student" Association="Self.FK_Exam_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="Exam" EntitySet="Exam" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_StudyGroup" Association="Self.FK_Student_StudyGroup">
+            <End Role="StudyGroup" EntitySet="StudyGroup" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Laba2_1ModelContainer" CdmEntityContainer="Laba2_1Entities">
+          <EntitySetMapping Name="DcDiscipline">
+            <EntityTypeMapping TypeName="Laba2_1Model.DcDiscipline">
+              <MappingFragment StoreEntitySet="DcDiscipline">
+                <ScalarProperty Name="DcDisciplineId" ColumnName="DcDisciplineId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DcPosition">
+            <EntityTypeMapping TypeName="Laba2_1Model.DcPosition">
+              <MappingFragment StoreEntitySet="DcPosition">
+                <ScalarProperty Name="DcPositionId" ColumnName="DcPositionId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DcSubdivision">
+            <EntityTypeMapping TypeName="Laba2_1Model.DcSubdivision">
+              <MappingFragment StoreEntitySet="DcSubdivision">
+                <ScalarProperty Name="DcSubdivisionId" ColumnName="DcSubdivisionId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Duties">
+            <EntityTypeMapping TypeName="Laba2_1Model.Duties">
+              <MappingFragment StoreEntitySet="Duties">
+                <ScalarProperty Name="DutiesId" ColumnName="DutiesId" />
+                <ScalarProperty Name="DcPositionId" ColumnName="DcPositionId" />
+                <ScalarProperty Name="DcSubdivisionId" ColumnName="DcSubdivisionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employee">
+            <EntityTypeMapping TypeName="Laba2_1Model.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="Oklad" ColumnName="Oklad" />
+                <ScalarProperty Name="BirthdayCity" ColumnName="BirthdayCity" />
+                <ScalarProperty Name="Nadbavka" ColumnName="Nadbavka" />
+                <ScalarProperty Name="DataVuplatu" ColumnName="DataVuplatu" />
+                <ScalarProperty Name="DutiesId" ColumnName="DutiesId" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Exam">
+            <EntityTypeMapping TypeName="Laba2_1Model.Exam">
+              <MappingFragment StoreEntitySet="Exam">
+                <ScalarProperty Name="ExamId" ColumnName="ExamId" />
+                <ScalarProperty Name="Mark" ColumnName="Mark" />
+                <ScalarProperty Name="DateExam" ColumnName="DateExam" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="DcDisciplineId" ColumnName="DcDisciplineId" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Student">
+            <EntityTypeMapping TypeName="Laba2_1Model.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="RecordBook" ColumnName="RecordBook" />
+                <ScalarProperty Name="BirthdayCity" ColumnName="BirthdayCity" />
+                <ScalarProperty Name="StudyGroupId" ColumnName="StudyGroupId" />
+                <ScalarProperty Name="Stipendia" ColumnName="Stipendia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudyGroup">
+            <EntityTypeMapping TypeName="Laba2_1Model.StudyGroup">
+              <MappingFragment StoreEntitySet="StudyGroup">
+                <ScalarProperty Name="StudyGroupId" ColumnName="StudyGroupId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DcSubdivisionId" ColumnName="DcSubdivisionId" />
+                <ScalarProperty Name="DataVstup" ColumnName="DataVstup" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

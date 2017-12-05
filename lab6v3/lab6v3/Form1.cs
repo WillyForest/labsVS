@@ -14,7 +14,7 @@ namespace lab6v3
     {
         DataSet d = new DataSet();
         DataTable dt = new DataTable();
-        MyData md = new MyData();
+        MyData1 md = new MyData1();
         public Form1()
         {
             InitializeComponent();
