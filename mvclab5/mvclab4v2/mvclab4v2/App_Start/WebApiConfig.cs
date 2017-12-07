@@ -13,7 +13,7 @@ namespace mvclab4v2.App_Start
         {
             config.Routes.MapHttpRoute(
                     name: "WApi",
-                    routeTemplate: "api/{controller}/{id}",
+                    routeTemplate: "api/{controller}/{action}/{id}",
                     defaults: new { id = RouteParameter.Optional }
                 );
 
