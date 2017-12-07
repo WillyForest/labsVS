@@ -1,0 +1,20 @@
+﻿@model IEnumerable<mvclab2.Models.Schedule>
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Предметы, которые ведет преподаватель</legend>
+    @foreach (var item in Model)
+    {
+        <div class="display-field">
+            @Html.DisplayFor(modelItem => item.Predmet.Name)
+        </div>
+    }
+</fieldset>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
