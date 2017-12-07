@@ -5,45 +5,167 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="Хранилище Laba2DBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Positions">
+        <EntityType Name="Employee">
           <Key>
-            <PropertyRef Name="IdPosition" />
+            <PropertyRef Name="EmployeeID" />
           </Key>
-          <Property Name="IdPosition" Type="int" Nullable="false" />
-          <Property Name="IdEmployee" Type="int" Nullable="false" />
-          <Property Name="IdSpec" Type="int" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Position" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
+        <EntityType Name="Predmets">
+          <Key>
+            <PropertyRef Name="PredmetID" />
+          </Key>
+          <Property Name="PredmetID" Type="int" Nullable="false" />
+          <Property Name="Hours" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="SheduleID" />
+          </Key>
+          <Property Name="SheduleID" Type="int" Nullable="false" />
+          <Property Name="PredmetID" Type="int" Nullable="false" />
+          <Property Name="EmployeeId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Schedule__Employ__29572725">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Schedule__Predme__36B12243">
+          <End Role="Predmets" Type="Self.Predmets" Multiplicity="1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Predmets">
+              <PropertyRef Name="PredmetID" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="PredmetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Хранилище Laba2DBModelContainer">
-          <EntitySet Name="Positions" EntityType="Self.Positions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Predmets" EntityType="Self.Predmets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Schedule__Employ__29572725" Association="Self.FK__Schedule__Employ__29572725">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Schedule__Predme__36B12243" Association="Self.FK__Schedule__Predme__36B12243">
+            <End Role="Predmets" EntitySet="Predmets" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Laba2DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Position">
+        <EntityType Name="Employee">
           <Key>
-            <PropertyRef Name="IdPosition" />
+            <PropertyRef Name="EmployeeID" />
           </Key>
-          <Property Name="IdPosition" Type="Int32" Nullable="false" />
-          <Property Name="IdEmployee" Type="Int32" Nullable="false" />
-          <Property Name="IdSpec" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Position" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Schedules" Relationship="Self.FK__Schedule__Employ__29572725" FromRole="Employee" ToRole="Schedule" />
         </EntityType>
-        <EntityContainer Name="Laba2DBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Positions" EntityType="Self.Position" />
+        <EntityType Name="Predmet">
+          <Key>
+            <PropertyRef Name="PredmetID" />
+          </Key>
+          <Property Name="PredmetID" Type="Int32" Nullable="false" />
+          <Property Name="Hours" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Schedules" Relationship="Self.FK__Schedule__Predme__36B12243" FromRole="Predmets" ToRole="Schedule" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="SheduleID" />
+          </Key>
+          <Property Name="SheduleID" Type="Int32" Nullable="false" />
+          <Property Name="PredmetID" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK__Schedule__Employ__29572725" FromRole="Schedule" ToRole="Employee" />
+          <NavigationProperty Name="Predmet" Relationship="Self.FK__Schedule__Predme__36B12243" FromRole="Schedule" ToRole="Predmets" />
+        </EntityType>
+        <Association Name="FK__Schedule__Employ__29572725">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Schedule__Predme__36B12243">
+          <End Role="Predmets" Type="Self.Predmet" Multiplicity="1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Predmets">
+              <PropertyRef Name="PredmetID" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="PredmetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Laba2DBEntities3" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="Predmets" EntityType="Self.Predmet" />
+          <EntitySet Name="Schedules" EntityType="Self.Schedule" />
+          <AssociationSet Name="FK__Schedule__Employ__29572725" Association="Self.FK__Schedule__Employ__29572725">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Schedule" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Schedule__Predme__36B12243" Association="Self.FK__Schedule__Predme__36B12243">
+            <End Role="Predmets" EntitySet="Predmets" />
+            <End Role="Schedule" EntitySet="Schedules" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище Laba2DBModelContainer" CdmEntityContainer="Laba2DBEntities">
-          <EntitySetMapping Name="Positions">
-            <EntityTypeMapping TypeName="Laba2DBModel.Position">
-              <MappingFragment StoreEntitySet="Positions">
-                <ScalarProperty Name="IdPosition" ColumnName="IdPosition" />
-                <ScalarProperty Name="IdEmployee" ColumnName="IdEmployee" />
-                <ScalarProperty Name="IdSpec" ColumnName="IdSpec" />
+        <EntityContainerMapping StorageEntityContainer="Хранилище Laba2DBModelContainer" CdmEntityContainer="Laba2DBEntities3">
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="Laba2DBModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Predmets">
+            <EntityTypeMapping TypeName="Laba2DBModel.Predmet">
+              <MappingFragment StoreEntitySet="Predmets">
+                <ScalarProperty Name="PredmetID" ColumnName="PredmetID" />
+                <ScalarProperty Name="Hours" ColumnName="Hours" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schedules">
+            <EntityTypeMapping TypeName="Laba2DBModel.Schedule">
+              <MappingFragment StoreEntitySet="Schedule">
+                <ScalarProperty Name="SheduleID" ColumnName="SheduleID" />
+                <ScalarProperty Name="PredmetID" ColumnName="PredmetID" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

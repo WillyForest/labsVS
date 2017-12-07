@@ -1,4 +1,5 @@
-﻿using System;
+﻿using mvclab2.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,23 +9,19 @@ namespace mvclab2.Controllers
 {
     public class HomeController : Controller
     {
+        private Laba2DBEntities3 db = new Laba2DBEntities3();
+
         public ActionResult Index()
         {
-            return View();
+            var emps = (from Employee in db.Employees select Employee).ToList();
+            return View(emps);
         }
 
-        public ActionResult About()
+        public ActionResult Details(int id)
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            var det = (from Schedule in db.Schedules where Schedule.EmployeeId == id select Schedule).ToList();
+            return View(det);
         }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+        
     }
 }

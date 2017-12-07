@@ -12,10 +12,19 @@ namespace mvclab2.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Position
+    public partial class Employee
     {
-        public int IdPosition { get; set; }
-        public int IdEmployee { get; set; }
-        public int IdSpec { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Employee()
+        {
+            this.Schedules = new HashSet<Schedule>();
+        }
+    
+        public int EmployeeID { get; set; }
+        public string Name { get; set; }
+        public string Position { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Schedule> Schedules { get; set; }
     }
 }

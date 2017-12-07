@@ -13,10 +13,10 @@ namespace mvclab2.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Laba2DBEntities : DbContext
+    public partial class Laba2DBEntities3 : DbContext
     {
-        public Laba2DBEntities()
-            : base("name=Laba2DBEntities")
+        public Laba2DBEntities3()
+            : base("name=Laba2DBEntities3")
         {
         }
     
@@ -25,6 +25,8 @@ namespace mvclab2.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Position> Positions { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<Predmet> Predmets { get; set; }
+        public virtual DbSet<Schedule> Schedules { get; set; }
     }
 }
