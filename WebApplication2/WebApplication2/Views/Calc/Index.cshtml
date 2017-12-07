@@ -1,0 +1,31 @@
+﻿@model WebApplication2.Models.OperandsModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("Index", "Calc"))
+        {
+            @Html.TextAreaFor(x => x.Num1); // input area for operand 1
+            @Html.TextAreaFor(x => x.Num2); // input area for operand 2
+            @Html.TextAreaFor(x => x.nums);
+
+            <input type="submit" value="Обчислити" />
+        }
+
+    </div>
+    @if (!string.IsNullOrWhiteSpace(ViewBag.Result)) //cheack result container
+    {
+        <p>@ViewBag.Result</p>
+    }
+</body>
+</html>
