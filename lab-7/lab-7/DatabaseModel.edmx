@@ -1,0 +1,500 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Lab7BaseModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="Lab7BaseModelStoreContainer">
+          <EntitySet Name="Brand" EntityType="Lab7BaseModel.Store.Brand" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Class" EntityType="Lab7BaseModel.Store.Class" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Customer" EntityType="Lab7BaseModel.Store.Customer" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Receipt" EntityType="Lab7BaseModel.Store.Receipt" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Supplier" EntityType="Lab7BaseModel.Store.Supplier" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Tool" EntityType="Lab7BaseModel.Store.Tool" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Warranty" EntityType="Lab7BaseModel.Store.Warranty" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="Receipt_ToolID_FK" Association="Lab7BaseModel.Store.Receipt_ToolID_FK">
+            <End Role="Tool" EntitySet="Tool" />
+            <End Role="Receipt" EntitySet="Receipt" />
+          </AssociationSet>
+          <AssociationSet Name="Tool_BrandID_FK" Association="Lab7BaseModel.Store.Tool_BrandID_FK">
+            <End Role="Brand" EntitySet="Brand" />
+            <End Role="Tool" EntitySet="Tool" />
+          </AssociationSet>
+          <AssociationSet Name="Tool_ClassID_FK" Association="Lab7BaseModel.Store.Tool_ClassID_FK">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="Tool" EntitySet="Tool" />
+          </AssociationSet>
+          <AssociationSet Name="Tool_SupplierID_FK" Association="Lab7BaseModel.Store.Tool_SupplierID_FK">
+            <End Role="Supplier" EntitySet="Supplier" />
+            <End Role="Tool" EntitySet="Tool" />
+          </AssociationSet>
+          <AssociationSet Name="Warranty_CustomerID_FK" Association="Lab7BaseModel.Store.Warranty_CustomerID_FK">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Warranty" EntitySet="Warranty" />
+          </AssociationSet>
+          <AssociationSet Name="Warranty_ReceiptID_FK" Association="Lab7BaseModel.Store.Warranty_ReceiptID_FK">
+            <End Role="Receipt" EntitySet="Receipt" />
+            <End Role="Warranty" EntitySet="Warranty" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Brand">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="MadeIn" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="Info" Type="varchar" MaxLength="32" />
+        </EntityType>
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="Info" Type="varchar" MaxLength="32" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="Phone" Type="char" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Receipt">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ToolID" Type="int" />
+          <Property Name="ItemAmount" Type="int" Nullable="false" />
+          <Property Name="SellDate" Type="date" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="Address" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="Phone" Type="char" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Tool">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="BrandID" Type="int" />
+          <Property Name="YearManufactured" Type="date" Nullable="false" />
+          <Property Name="ClassID" Type="int" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="Specifications" Type="varchar" Nullable="false" MaxLength="64" />
+          <Property Name="Price" Type="money" Nullable="false" />
+          <Property Name="SupplierID" Type="int" />
+          <Property Name="PriceVAT" Type="numeric" Precision="22" Scale="5" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="Warranty">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="CustomerID" Type="int" />
+          <Property Name="ReceiptID" Type="int" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="EndDate" Type="date" Nullable="false" />
+          <Property Name="Info" Type="varchar" MaxLength="32" />
+        </EntityType>
+        <Association Name="Receipt_ToolID_FK">
+          <End Role="Tool" Type="Lab7BaseModel.Store.Tool" Multiplicity="0..1" />
+          <End Role="Receipt" Type="Lab7BaseModel.Store.Receipt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tool">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Receipt">
+              <PropertyRef Name="ToolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Tool_BrandID_FK">
+          <End Role="Brand" Type="Lab7BaseModel.Store.Brand" Multiplicity="0..1" />
+          <End Role="Tool" Type="Lab7BaseModel.Store.Tool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tool">
+              <PropertyRef Name="BrandID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Tool_ClassID_FK">
+          <End Role="Class" Type="Lab7BaseModel.Store.Class" Multiplicity="0..1" />
+          <End Role="Tool" Type="Lab7BaseModel.Store.Tool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tool">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Tool_SupplierID_FK">
+          <End Role="Supplier" Type="Lab7BaseModel.Store.Supplier" Multiplicity="0..1" />
+          <End Role="Tool" Type="Lab7BaseModel.Store.Tool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tool">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Warranty_CustomerID_FK">
+          <End Role="Customer" Type="Lab7BaseModel.Store.Customer" Multiplicity="0..1" />
+          <End Role="Warranty" Type="Lab7BaseModel.Store.Warranty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Warranty">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Warranty_ReceiptID_FK">
+          <End Role="Receipt" Type="Lab7BaseModel.Store.Receipt" Multiplicity="0..1" />
+          <End Role="Warranty" Type="Lab7BaseModel.Store.Warranty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Receipt">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Warranty">
+              <PropertyRef Name="ReceiptID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Lab7BaseModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="Lab7BaseEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Brand" EntityType="Lab7BaseModel.Brand" />
+          <EntitySet Name="Class" EntityType="Lab7BaseModel.Class" />
+          <EntitySet Name="Customer" EntityType="Lab7BaseModel.Customer" />
+          <EntitySet Name="Receipt" EntityType="Lab7BaseModel.Receipt" />
+          <EntitySet Name="Supplier" EntityType="Lab7BaseModel.Supplier" />
+          <EntitySet Name="Tool" EntityType="Lab7BaseModel.Tool" />
+          <EntitySet Name="Warranty" EntityType="Lab7BaseModel.Warranty" />
+          <AssociationSet Name="Tool_BrandID_FK" Association="Lab7BaseModel.Tool_BrandID_FK">
+            <End Role="Brand" EntitySet="Brand" />
+            <End Role="Tool" EntitySet="Tool" />
+          </AssociationSet>
+          <AssociationSet Name="Tool_ClassID_FK" Association="Lab7BaseModel.Tool_ClassID_FK">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="Tool" EntitySet="Tool" />
+          </AssociationSet>
+          <AssociationSet Name="Warranty_CustomerID_FK" Association="Lab7BaseModel.Warranty_CustomerID_FK">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Warranty" EntitySet="Warranty" />
+          </AssociationSet>
+          <AssociationSet Name="Receipt_ToolID_FK" Association="Lab7BaseModel.Receipt_ToolID_FK">
+            <End Role="Tool" EntitySet="Tool" />
+            <End Role="Receipt" EntitySet="Receipt" />
+          </AssociationSet>
+          <AssociationSet Name="Warranty_ReceiptID_FK" Association="Lab7BaseModel.Warranty_ReceiptID_FK">
+            <End Role="Receipt" EntitySet="Receipt" />
+            <End Role="Warranty" EntitySet="Warranty" />
+          </AssociationSet>
+          <AssociationSet Name="Tool_SupplierID_FK" Association="Lab7BaseModel.Tool_SupplierID_FK">
+            <End Role="Supplier" EntitySet="Supplier" />
+            <End Role="Tool" EntitySet="Tool" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Brand">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="MadeIn" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="Info" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="Info" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="Phone" Type="String" MaxLength="10" Unicode="false" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="Receipt">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ToolID" Type="Int32" />
+          <Property Name="ItemAmount" Type="Int32" Nullable="false" />
+          <Property Name="SellDate" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="Phone" Type="String" MaxLength="10" Unicode="false" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="Tool">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="BrandID" Type="Int32" />
+          <Property Name="YearManufactured" Type="DateTime" Nullable="false" />
+          <Property Name="ClassID" Type="Int32" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="Specifications" Type="String" Nullable="false" MaxLength="64" Unicode="false" FixedLength="false" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="SupplierID" Type="Int32" />
+          <Property Name="PriceVAT" Type="Decimal" Precision="22" Scale="5" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="Warranty">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="CustomerID" Type="Int32" />
+          <Property Name="ReceiptID" Type="Int32" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" />
+          <Property Name="Info" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <Association Name="Tool_BrandID_FK">
+          <End Role="Brand" Type="Lab7BaseModel.Brand" Multiplicity="0..1" />
+          <End Role="Tool" Type="Lab7BaseModel.Tool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tool">
+              <PropertyRef Name="BrandID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Tool_ClassID_FK">
+          <End Role="Class" Type="Lab7BaseModel.Class" Multiplicity="0..1" />
+          <End Role="Tool" Type="Lab7BaseModel.Tool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tool">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Warranty_CustomerID_FK">
+          <End Role="Customer" Type="Lab7BaseModel.Customer" Multiplicity="0..1" />
+          <End Role="Warranty" Type="Lab7BaseModel.Warranty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Warranty">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Receipt_ToolID_FK">
+          <End Role="Tool" Type="Lab7BaseModel.Tool" Multiplicity="0..1" />
+          <End Role="Receipt" Type="Lab7BaseModel.Receipt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tool">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Receipt">
+              <PropertyRef Name="ToolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Warranty_ReceiptID_FK">
+          <End Role="Receipt" Type="Lab7BaseModel.Receipt" Multiplicity="0..1" />
+          <End Role="Warranty" Type="Lab7BaseModel.Warranty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Receipt">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Warranty">
+              <PropertyRef Name="ReceiptID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Tool_SupplierID_FK">
+          <End Role="Supplier" Type="Lab7BaseModel.Supplier" Multiplicity="0..1" />
+          <End Role="Tool" Type="Lab7BaseModel.Tool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tool">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Lab7BaseModelStoreContainer" CdmEntityContainer="Lab7BaseEntities2">
+          <EntitySetMapping Name="Brand">
+            <EntityTypeMapping TypeName="Lab7BaseModel.Brand">
+              <MappingFragment StoreEntitySet="Brand">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MadeIn" ColumnName="MadeIn" />
+                <ScalarProperty Name="Info" ColumnName="Info" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Class">
+            <EntityTypeMapping TypeName="Lab7BaseModel.Class">
+              <MappingFragment StoreEntitySet="Class">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Info" ColumnName="Info" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customer">
+            <EntityTypeMapping TypeName="Lab7BaseModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Receipt">
+            <EntityTypeMapping TypeName="Lab7BaseModel.Receipt">
+              <MappingFragment StoreEntitySet="Receipt">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ToolID" ColumnName="ToolID" />
+                <ScalarProperty Name="ItemAmount" ColumnName="ItemAmount" />
+                <ScalarProperty Name="SellDate" ColumnName="SellDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supplier">
+            <EntityTypeMapping TypeName="Lab7BaseModel.Supplier">
+              <MappingFragment StoreEntitySet="Supplier">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tool">
+            <EntityTypeMapping TypeName="Lab7BaseModel.Tool">
+              <MappingFragment StoreEntitySet="Tool">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
+                <ScalarProperty Name="YearManufactured" ColumnName="YearManufactured" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Specifications" ColumnName="Specifications" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="PriceVAT" ColumnName="PriceVAT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Warranty">
+            <EntityTypeMapping TypeName="Lab7BaseModel.Warranty">
+              <MappingFragment StoreEntitySet="Warranty">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="ReceiptID" ColumnName="ReceiptID" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Info" ColumnName="Info" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="DatabaseModel">
+        <EntityTypeShape EntityType="Lab7BaseModel.Brand" Width="1.5" PointX="0.75" PointY="1.75" Height="1.787985026041667" IsExpanded="true" />
+        <EntityTypeShape EntityType="Lab7BaseModel.Class" Width="1.5" PointX="0.75" PointY="5.25" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="Lab7BaseModel.Customer" Width="1.5" PointX="5.25" PointY="5.875" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="Lab7BaseModel.Receipt" Width="1.5" PointX="5.25" PointY="1.625" Height="1.787985026041667" IsExpanded="true" />
+        <EntityTypeShape EntityType="Lab7BaseModel.Supplier" Width="1.5" PointX="0.75" PointY="7.875" Height="1.7879850260416657" IsExpanded="true" />
+        <EntityTypeShape EntityType="Lab7BaseModel.Tool" Width="1.5" PointX="3" PointY="1" Height="2.7494921875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Lab7BaseModel.Warranty" Width="1.5" PointX="7.5" PointY="1.5" Height="2.172587890625" IsExpanded="true" />
+        <AssociationConnector Association="Lab7BaseModel.Tool_BrandID_FK" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="2.6439925130208337" />
+          <ConnectorPoint PointX="3" PointY="2.6439925130208337" />
+        </AssociationConnector>
+        <AssociationConnector Association="Lab7BaseModel.Tool_ClassID_FK" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="6.047841796875" />
+          <ConnectorPoint PointX="3.3956994230143227" PointY="6.0478417968749989" />
+          <ConnectorPoint PointX="3.5623660896809897" PointY="6.047841796875" />
+          <ConnectorPoint PointX="4.0205705126953122" PointY="6.047841796875" />
+          <ConnectorPoint PointX="4.0205705126953122" PointY="3.7494921875" />
+        </AssociationConnector>
+        <AssociationConnector Association="Lab7BaseModel.Warranty_CustomerID_FK" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.75" PointY="6.672841796875" />
+          <ConnectorPoint PointX="8.25" PointY="6.672841796875" />
+          <ConnectorPoint PointX="8.25" PointY="3.672587890625" />
+        </AssociationConnector>
+        <AssociationConnector Association="Lab7BaseModel.Receipt_ToolID_FK" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="2.5189925130208337" />
+          <ConnectorPoint PointX="5.25" PointY="2.5189925130208337" />
+        </AssociationConnector>
+        <AssociationConnector Association="Lab7BaseModel.Warranty_ReceiptID_FK" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.75" PointY="2.5189925130208337" />
+          <ConnectorPoint PointX="7.5" PointY="2.5189925130208337" />
+        </AssociationConnector>
+        <AssociationConnector Association="Lab7BaseModel.Tool_SupplierID_FK" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="8.7689925130208337" />
+          <ConnectorPoint PointX="3.4790327563476562" PointY="8.7689925130208337" />
+          <ConnectorPoint PointX="3.4790327563476562" PointY="3.7494921875" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

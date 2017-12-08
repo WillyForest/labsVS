@@ -54,15 +54,41 @@ namespace mvclab4v2.Controllers
             }
             return SP;
         }
-
-        [HttpPost]
+        [HttpGet]
         [ActionName("CreateEmp")]
-        public HttpResponseMessage CreateEmp(Employee emp)
+        public HttpResponseMessage CreateEmp(int empId, string name, string pos)//Employee emp)
         {
             var response = Request.CreateResponse(HttpStatusCode.OK);
-
             try
             {
+                Employee emp = new Employee();
+                emp.EmployeeID = empId;
+                emp.Name = name;
+                emp.Position = pos;
+                db.Employees.Add(emp);
+                db.SaveChanges();
+                response.Content = new StringContent("{Id:" + emp.EmployeeID + ",Name:" + emp.Name +
+                    ",Position:" + emp.Position + "}", Encoding.UTF8, "application/json");
+            }
+            catch (Exception ex)
+            {
+                response.Content = new StringContent("{Error:" + ex.Message + "}", Encoding.UTF8,
+                    "application/json");
+            }
+            return response;
+        }
+        /*
+        [HttpPost]
+        [ActionName("CreateEmp")]
+        public HttpResponseMessage CreateEmp(int empId, string name, string pos)//Employee emp)
+        {
+            var response = Request.CreateResponse(HttpStatusCode.OK);
+            try
+            {
+                Employee emp = new Employee();
+                emp.EmployeeID = empId;
+                emp.Name = name;
+                emp.Position = pos;
                 db.Employees.Add(emp);
                 db.SaveChanges();
                 response.Content = new StringContent("{Id:" + emp.EmployeeID + ",Name:" + emp.Name +
@@ -73,8 +99,35 @@ namespace mvclab4v2.Controllers
                     "application/json");
             }
             return response;
-        }
+        }*/
+        [HttpGet]
+        [ActionName("UpdateEmp")]
+        public HttpResponseMessage UpdateEmp(int empId, string name, string pos)//Employee emp)
+        {
+            var response = Request.CreateResponse(HttpStatusCode.OK);
+            var emp = (from o in db.Employees where o.EmployeeID == empId select o).First();
 
+            try
+            {
+                Employee sEmp = new Employee();
+                sEmp.EmployeeID = empId;
+                sEmp.Name = name;
+                sEmp.Position = pos;
+
+                db.Employees.Remove(emp);
+                db.Employees.Add(sEmp);
+                db.SaveChanges();
+                response.Content = new StringContent("{Id:" + sEmp.EmployeeID + ",Name:" + sEmp.Name +
+                    ",Position:" + sEmp.Position + "}", Encoding.UTF8, "application/json");
+            }
+            catch (Exception ex)
+            {
+                response.Content = new StringContent("{Error:" + ex.Message + "}", Encoding.UTF8,
+                    "application/json");
+            }
+            return response;
+        }
+        /*
         [HttpPost]
         [ActionName("UpdateEmp")]
         public HttpResponseMessage UpdateEmp(Employee sEmp)
@@ -96,8 +149,29 @@ namespace mvclab4v2.Controllers
                     "application/json");
             }
             return response;
-        }
+        }*/
+        [HttpGet]
+        [ActionName("DeleteEmp")]
+        public HttpResponseMessage DeleteEmp(int empId)//Employee emp)
+        {
+            var response = Request.CreateResponse(HttpStatusCode.OK);
+            var emp = (from o in db.Employees where o.EmployeeID == empId select o).First();
 
+            try
+            {
+                db.Employees.Remove(emp);
+                db.SaveChanges();
+                response.Content = new StringContent("{Id:" + emp.EmployeeID + ",Name:" + emp.Name +
+                    ",Position:" + emp.Position + "}", Encoding.UTF8, "application/json");
+            }
+            catch (Exception ex)
+            {
+                response.Content = new StringContent("{Error:" + ex.Message + "}", Encoding.UTF8,
+                    "application/json");
+            }
+            return response;
+        }
+        /*
         [HttpPost]
         [ActionName("DeleteEmp")]
         public HttpResponseMessage DeleteEmp(Employee sEmp)
@@ -118,7 +192,7 @@ namespace mvclab4v2.Controllers
                     "application/json");
             }
             return response;
-        }
+        }*/
 
     }
 }
