@@ -1,8 +1,0 @@
-c:\users\sasha\documents\visual studio 2015\Projects\Test\Test\bin\Debug\Test.exe.config
-c:\users\sasha\documents\visual studio 2015\Projects\Test\Test\obj\Debug\Test.Form1.resources
-c:\users\sasha\documents\visual studio 2015\Projects\Test\Test\obj\Debug\Test.Properties.Resources.resources
-c:\users\sasha\documents\visual studio 2015\Projects\Test\Test\obj\Debug\Test.csproj.GenerateResource.Cache
-c:\users\sasha\documents\visual studio 2015\Projects\Test\Test\bin\Debug\Test.exe
-c:\users\sasha\documents\visual studio 2015\Projects\Test\Test\bin\Debug\Test.pdb
-c:\users\sasha\documents\visual studio 2015\Projects\Test\Test\obj\Debug\Test.exe
-c:\users\sasha\documents\visual studio 2015\Projects\Test\Test\obj\Debug\Test.pdb

@@ -1,1 +1,0 @@
-c:\users\sasha\documents\visual studio 2015\Projects\SortedList\SortedList\bin\Debug\SortedList.exe.config
